@@ -42,6 +42,7 @@ namespace StartupProject_Asp.NetCore_PostGRE.Controllers.SuperAdmin
         {
             return new List<string>(await _userManager.GetRolesAsync(user));
         }
+        [HttpGet]
         public async Task<IActionResult> Manage(Guid userId)
         {
             ViewBag.userId = userId;
@@ -83,17 +84,24 @@ namespace StartupProject_Asp.NetCore_PostGRE.Controllers.SuperAdmin
             {
                 return View();
             }
-            var roles = await _userManager.GetRolesAsync(user);
-            var result = await _userManager.RemoveFromRolesAsync(user, roles);
+            IList<string> roles = await _userManager.GetRolesAsync(user);
+            IdentityResult result = await _userManager.RemoveFromRolesAsync(user, roles);
             if (!result.Succeeded)
             {
                 ModelState.AddModelError("", "Cannot remove user existing roles");
                 return View(model);
             }
             result = await _userManager.AddToRolesAsync(user, model.Where(x => x.Selected).Select(y => y.RoleName));
+            IdentityResult result2 = await _userManager.UpdateSecurityStampAsync(user);    //Forcely Logout User
+
             if (!result.Succeeded)
             {
                 ModelState.AddModelError("", "Cannot add selected roles to user");
+                return View(model);
+            }
+            if (!result2.Succeeded)
+            {
+                ModelState.AddModelError("", "Cannot log out the user");
                 return View(model);
             }
             return RedirectToAction("Index");

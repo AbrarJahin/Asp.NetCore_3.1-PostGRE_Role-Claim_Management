@@ -15,9 +15,9 @@ namespace StartupProject_Asp.NetCore_PostGRE.Data.Seeds
             IList<RoleClaim> roleClaimList = new List<RoleClaim>();
             foreach (Guid superAdminId in superAdminUserIdList)
             {
-                foreach (object name in Enum.GetValues(typeof(EClaim)))
+                foreach (object name in Enum.GetValues(typeof(EPolicy)))
                 {
-                    string description = ((EClaim)name).Description();
+                    string description = ((EPolicy)name).Description();
                     userClaimList.Add(new UserClaim {
                         Id = itemCount--,
                         UserId = superAdminId,

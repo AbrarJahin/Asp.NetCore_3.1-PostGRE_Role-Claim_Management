@@ -5,14 +5,12 @@ namespace StartupProject_Asp.NetCore_PostGRE.Data.Enums
 {
     public enum EPolicy
     {
-        [Display(Name = "Role Read")]
-        [Description("Role-Read")]
-        RoleRead = 0,
-        [Description("Role-Write")]
-        RoleWrite,
-        [Description("Role-Update")]
-        RoleUpdate,
-        [Description("Role-Delete")]
-        RoleDelete
+        [Display(Name = "Role-Claim Policy")]
+        [Description("Role-Claim-View")]
+        RoleClaimView = 0,
+        [Description("Role")]
+        Role,
+        [Description("Claim")]
+        Claim
     }
 }
