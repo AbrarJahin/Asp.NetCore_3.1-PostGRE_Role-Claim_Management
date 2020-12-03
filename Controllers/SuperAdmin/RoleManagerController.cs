@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using StartupProject_Asp.NetCore_PostGRE.Attributes;
 using StartupProject_Asp.NetCore_PostGRE.Data.Enums;
 using StartupProject_Asp.NetCore_PostGRE.Data.Models.Identity;
+using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace StartupProject_Asp.NetCore_PostGRE.Controllers.SuperAdmin
@@ -29,8 +31,15 @@ namespace StartupProject_Asp.NetCore_PostGRE.Controllers.SuperAdmin
                 //await _roleManager.CreateAsync(new Role(roleName.Trim()));
                 await _roleManager.CreateAsync(new Role {
                     Name = roleName.Trim(),
-                    Description = "Added From Admin"
+                    Description = "Added From Admin",
+                    
                 });
+                var accountRole = await _roleManager.FindByNameAsync(roleName);
+                foreach (object name in Enum.GetValues(typeof(EClaim)))
+                {
+                    string description = ((EClaim)name).Description();
+                    await _roleManager.AddClaimAsync(accountRole, new Claim(name.ToString(), description));
+                }
             }
             return RedirectToAction("Index");
         }

@@ -9,9 +9,9 @@ namespace StartupProject_Asp.NetCore_PostGRE.AuthorizationRequirement
         //https://stackoverflow.com/questions/39590060/how-to-access-dbcontext-session-in-custom-policy-based-authorization
         //https://damienbod.com/2017/10/23/implementing-custom-policies-in-asp-net-core-using-the-httpcontext/
         private readonly ApplicationDbContext _dbContext;
-        private EPolicy _policyType;
+        private EClaim _policyType;
 
-        public RoleClaimPolicyRequirement(ApplicationDbContext context, EPolicy policy)
+        public RoleClaimPolicyRequirement(ApplicationDbContext context, EClaim policy)
         {
             _policyType = policy;
             _dbContext = context;
