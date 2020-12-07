@@ -8,7 +8,7 @@ namespace StartupProject_Asp.NetCore_PostGRE.Data.Enums
         [Description("Role.Create")]
         Role_Create = 0,
         [Description("Role.Read")]
-        Role_Read = 0,
+        Role_Read,
         [Description("Role.Update")]
         Role_Update,
         [Description("Role.Delete")]

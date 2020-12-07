@@ -36,24 +36,20 @@ namespace StartupProject_Asp.NetCore_PostGRE.Controllers.SuperAdmin
             ViewBag.role = role;
             Dictionary<string, List<ManageRoleClaimsViewModel>> model = new Dictionary<string, List<ManageRoleClaimsViewModel>>();
 
-            foreach (object name in Enum.GetValues(typeof(EClaim)))
-            {
-                string description = ((EClaim)name).Description();
-                string moduleName = name.ToString().Split("_").FirstOrDefault();
-                if (!model.ContainsKey(moduleName))
-                {
-                    model.Add(moduleName, new List<ManageRoleClaimsViewModel>());
-                }
+            List<KeyValuePair<string, string>> list = new List<KeyValuePair<string, string>>();
 
+
+            foreach (EClaim claim in Enum.GetValues(typeof(EClaim)))
+            {
                 RoleClaim roleClaim = await _context.RoleClaims
-                                        .Where(rc => rc.ClaimType == name.ToString())
-                                        .Where(rc => rc.ClaimValue == description)
+                                        .Where(rc => rc.ClaimType == claim.ToString())
+                                        .Where(rc => rc.ClaimValue == claim.Description())
                                         .Where(rc => rc.RoleId == role.Id)
                                         .FirstOrDefaultAsync();
                 ManageRoleClaimsViewModel roleClaimsViewModel = new ManageRoleClaimsViewModel {
                     RoleId = role.Id,
-                    ClaimType = name.ToString(),
-                    ClaimValue = description
+                    ClaimType = claim.ToString(),
+                    ClaimValue = claim.Description()
                 };
                 if(roleClaim==null)
                 {
@@ -63,6 +59,11 @@ namespace StartupProject_Asp.NetCore_PostGRE.Controllers.SuperAdmin
                 {
                     roleClaimsViewModel.Id = roleClaim.Id;
                     roleClaimsViewModel.Selected = true;
+                }
+                string moduleName = claim.ToString().Split("_").FirstOrDefault();
+                if (!model.ContainsKey(moduleName))
+                {
+                    model.Add(moduleName, new List<ManageRoleClaimsViewModel>());
                 }
                 model[moduleName].Add(roleClaimsViewModel);
             }
@@ -80,23 +81,24 @@ namespace StartupProject_Asp.NetCore_PostGRE.Controllers.SuperAdmin
 
             var roleClaim = await _context.RoleClaims
                                         .Where(rc => rc.RoleId == role.Id)
-                                        .FirstOrDefaultAsync();
+                                        .ToListAsync();
             _context.RoleClaims.RemoveRange(roleClaim);
-            
-            /*var result = await _userManager.AddToRolesAsync(user, model.Where(x => x.Selected).Select(y => y.RoleName));
-            IdentityResult result2 = await _userManager.UpdateSecurityStampAsync(user);    //Forcely Logout User
-
-            if (!result.Succeeded)
+            //await _context.SaveChangesAsync();
+            foreach (ManageRoleClaimsViewModel entry in model)
             {
-                ModelState.AddModelError("", "Cannot add selected roles to user");
-                return View(model);
+                if(entry.Selected == true)
+                { 
+                    _context.RoleClaims.Add(new RoleClaim {
+                         Role = role,
+                         RoleId = roleId,
+                         ClaimType = entry.ClaimType,
+                         ClaimValue= entry.ClaimValue
+                    });
+                }
             }
-            if (!result2.Succeeded)
-            {
-                ModelState.AddModelError("", "Cannot log out the user");
-                return View(model);
-            }*/
-            return RedirectToAction("Index");
+            var result = await _context.SaveChangesAsync();
+            //return RedirectToAction("Index");
+            return RedirectToAction("Index", "RoleManager", new { area = "" });
         }
     }
 }

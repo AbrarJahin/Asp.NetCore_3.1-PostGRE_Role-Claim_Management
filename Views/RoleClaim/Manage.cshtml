@@ -23,7 +23,7 @@
                         </div>
                         @foreach (ManageRoleClaimsViewModel item in items.Value)
                         {
-                            <div class="form-check m-1">
+                            <div class="form-check m-1 input-group">
                                 <input type="hidden" name="[@i].RoleId" asp-for="@item.RoleId" />
                                 <input type="hidden" name="[@i].ClaimType" asp-for="@item.ClaimType" />
                                 <input type="hidden" name="[@i].ClaimValue" asp-for="@item.ClaimValue" />
