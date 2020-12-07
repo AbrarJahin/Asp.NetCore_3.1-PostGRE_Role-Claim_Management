@@ -7,9 +7,12 @@
     <div class="card">
         <div class="card-header">
             <h2>Manage Role Claims</h2>
-            Add/Remove Claims for @ViewBag.role
+            Add/Remove Claims for @(ViewBag.role.Name + "-" + ViewBag.role.Description)
         </div>
         <div class="card-body">
+            <input name="roleId" type="hidden" value="@ViewBag.role.Id">
+
+            @{ int i = 0;}
             @foreach (var items in Model)
             {
                 <ul>
@@ -18,23 +21,24 @@
                             Subject -
                             @items.Key
                         </div>
-                        @foreach (var item in items.Value)
+                        @foreach (ManageRoleClaimsViewModel item in items.Value)
                         {
-                        <div class="form-check m-1">
-                            <input type="hidden" asp-for="@item.RoleId" />
-                            <input type="hidden" asp-for="@item.ClaimType" />
-                            <input type="hidden" asp-for="@item.ClaimValue" />
-                            <input asp-for="@item.Selected" class="form-check-input" />
-                            <label class="form-check-label" asp-for="@item.Selected">
-                                @*@( item.ClaimType + " - " + item.ClaimValue )*@
-                                @item.ClaimValue
-                            </label>
-                        </div>
+                            <div class="form-check m-1">
+                                <input type="hidden" name="[@i].RoleId" asp-for="@item.RoleId" />
+                                <input type="hidden" name="[@i].ClaimType" asp-for="@item.ClaimType" />
+                                <input type="hidden" name="[@i].ClaimValue" asp-for="@item.ClaimValue" />
+                                <input name="[@i].Selected" asp-for="@item.Selected" class="form-check-input" />
+                                <label class="form-check-label" asp-for="@item.Selected">
+                                    @*@( item.ClaimType + " - " + item.ClaimValue )*@
+                                    @item.ClaimValue
+                                </label>
+                            </div>
+                            i++;
                         }
                     </li>
                 </ul>
             }
-            
+
             <div asp-validation-summary="All" class="text-danger"></div>
         </div>
         <div class="card-footer">

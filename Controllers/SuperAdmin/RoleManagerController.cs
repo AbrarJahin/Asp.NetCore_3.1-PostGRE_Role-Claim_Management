@@ -30,6 +30,7 @@ namespace StartupProject_Asp.NetCore_PostGRE.Controllers.SuperAdmin
                                 .ToListAsync();
             return View(roles);
         }
+
         [HttpPost]
         public async Task<IActionResult> AddRole(string roleName, string roleDescription)
         {

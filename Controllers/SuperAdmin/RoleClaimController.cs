@@ -33,7 +33,7 @@ namespace StartupProject_Asp.NetCore_PostGRE.Controllers.SuperAdmin
             {
                 return View("Error");
             }
-            ViewBag.role = role.Name + "-" + role.Description;
+            ViewBag.role = role;
             Dictionary<string, List<ManageRoleClaimsViewModel>> model = new Dictionary<string, List<ManageRoleClaimsViewModel>>();
 
             foreach (object name in Enum.GetValues(typeof(EClaim)))
@@ -70,7 +70,7 @@ namespace StartupProject_Asp.NetCore_PostGRE.Controllers.SuperAdmin
         }
 
         [HttpPost]
-        public async Task<IActionResult> Manage(List<ManageUserRolesViewModel> model, Guid roleId)
+        public async Task<IActionResult> Manage(List<ManageRoleClaimsViewModel> model, Guid roleId)
         {
             Role role = await _roleManager.FindByIdAsync(roleId.ToString());
             if (role == null)
