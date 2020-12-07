@@ -42,5 +42,12 @@ namespace StartupProject_Asp.NetCore_PostGRE.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        [Route("/Home/HandleError/{code:int}")]
+        public IActionResult HandleError(int code)
+        {
+            ViewBag.ErrorMessage = $"The ErrorCode is: {code}";
+            return View("HandleError");
+        }
     }
 }

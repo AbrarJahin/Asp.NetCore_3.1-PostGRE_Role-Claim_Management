@@ -173,7 +173,21 @@ namespace StartupProject_Asp.NetCore_PostGRE
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            #region Handle http pipeline for making custom action for different error codes
+            //app.Use(async (context, next) =>
+            //{
+            //    await next();
+            //    if (context.Response.StatusCode == 404)
+            //    {
+            //        context.Request.Path = "/Home";
+            //        await next();
+            //    }
+            //});
+            //app.UseStatusCodePages();
+            app.UseStatusCodePagesWithReExecute("/Home/HandleError/{0}");
+            #endregion
             app.UseHttpsRedirection();  //Can be ignored
+            #region Configure Cache for static files
             app.UseStaticFiles(new StaticFileOptions
             {
                 OnPrepareResponse = context => context.Context.Response.GetTypedHeaders()
@@ -185,12 +199,14 @@ namespace StartupProject_Asp.NetCore_PostGRE
                       MaxAge = TimeSpan.FromDays(365) // 1 year
                   }
             });
+            #endregion
             app.UseWebMarkupMin();
             app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
 
+            #region Configure URL Convention
             app.UseEndpoints(endpoints =>
             {
                 //endpoints.MapControllerRoute(
@@ -204,6 +220,7 @@ namespace StartupProject_Asp.NetCore_PostGRE
                     );
                 endpoints.MapRazorPages();
             });
+            #endregion
         }
     }
 }
