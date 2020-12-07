@@ -24,37 +24,27 @@ namespace StartupProject_Asp.NetCore_PostGRE.Controllers.SuperAdmin
             _roleManager = roleManager;
             _context = context;
         }
-        [HttpGet]
-        public async Task<IActionResult> Index()
-        {
-            var roles = await _roleManager.Roles
-                                //.Select(r => new { r.Id, r.Name, r.Description })
-                                .Distinct()
-                                .OrderByDescending(r => r.Name)//Descending
-                                .ThenBy(r=>r.Description)//Ascending
-                                .ToListAsync();
-
-            return View(roles);
-        }
 
         [HttpGet]
-        public async Task<IActionResult> Manage(Guid roleId)
+        public async Task<IActionResult> Manage(Guid id)
         {
-            ViewBag.roleId = roleId;
-            Role role = await _roleManager.FindByIdAsync(roleId.ToString());
+            Role role = await _roleManager.FindByIdAsync(id.ToString());
             if (role == null)
             {
-                ViewBag.ErrorMessage = $"Role with Id = {roleId} cannot be found";
-                return View("NotFound");
+                return View("Error");
             }
-            //List<RoleClaim> roleClaims = role.Claims.ToList();
-
-            //ViewBag.claims = claims;
-            List<ManageRoleClaimsViewModel> model = new List<ManageRoleClaimsViewModel>();
+            ViewBag.role = role.Name + "-" + role.Description;
+            Dictionary<string, List<ManageRoleClaimsViewModel>> model = new Dictionary<string, List<ManageRoleClaimsViewModel>>();
 
             foreach (object name in Enum.GetValues(typeof(EClaim)))
             {
                 string description = ((EClaim)name).Description();
+                string moduleName = name.ToString().Split("_").FirstOrDefault();
+                if (!model.ContainsKey(moduleName))
+                {
+                    model.Add(moduleName, new List<ManageRoleClaimsViewModel>());
+                }
+
                 RoleClaim roleClaim = await _context.RoleClaims
                                         .Where(rc => rc.ClaimType == name.ToString())
                                         .Where(rc => rc.ClaimValue == description)
@@ -74,13 +64,13 @@ namespace StartupProject_Asp.NetCore_PostGRE.Controllers.SuperAdmin
                     roleClaimsViewModel.Id = roleClaim.Id;
                     roleClaimsViewModel.Selected = true;
                 }
-                model.Add(roleClaimsViewModel);
+                model[moduleName].Add(roleClaimsViewModel);
             }
             return View(model);
         }
 
-        /*[HttpPost]
-        public async Task<IActionResult> Manage(List<ManageUserRolesViewModel> model, string roleId)
+        [HttpPost]
+        public async Task<IActionResult> Manage(List<ManageUserRolesViewModel> model, Guid roleId)
         {
             Role role = await _roleManager.FindByIdAsync(roleId.ToString());
             if (role == null)
@@ -92,11 +82,8 @@ namespace StartupProject_Asp.NetCore_PostGRE.Controllers.SuperAdmin
                                         .Where(rc => rc.RoleId == role.Id)
                                         .FirstOrDefaultAsync();
             _context.RoleClaims.RemoveRange(roleClaim);
-            //var result = await _context.SaveChangesAsync();
-            foreach(var a in model)
-            {
-            }
-            var result = await _userManager.AddToRolesAsync(user, model.Where(x => x.Selected).Select(y => y.RoleName));
+            
+            /*var result = await _userManager.AddToRolesAsync(user, model.Where(x => x.Selected).Select(y => y.RoleName));
             IdentityResult result2 = await _userManager.UpdateSecurityStampAsync(user);    //Forcely Logout User
 
             if (!result.Succeeded)
@@ -108,8 +95,8 @@ namespace StartupProject_Asp.NetCore_PostGRE.Controllers.SuperAdmin
             {
                 ModelState.AddModelError("", "Cannot log out the user");
                 return View(model);
-            }
+            }*/
             return RedirectToAction("Index");
-        }*/
+        }
     }
 }
