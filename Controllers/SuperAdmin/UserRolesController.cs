@@ -24,7 +24,7 @@ namespace StartupProject_Asp.NetCore_PostGRE.Controllers.SuperAdmin
         }
         public async Task<IActionResult> Index()
         {
-            List<User> users = await _userManager.Users.ToListAsync();
+            List<User> users = await _userManager.Users.OrderBy(u => u.FirstName).ThenBy(u=> u.LastName).ToListAsync();
             List<UserRolesViewModel> userRolesViewModel = new List<UserRolesViewModel>();
             foreach (User user in users)
             {
@@ -56,7 +56,7 @@ namespace StartupProject_Asp.NetCore_PostGRE.Controllers.SuperAdmin
             ViewBag.UserName = user.UserName;
             List<ManageUserRolesViewModel> model = new List<ManageUserRolesViewModel>();
 
-            foreach (Role role in _roleManager.Roles)
+            foreach (Role role in _roleManager.Roles.OrderBy(r=>r.Name))
             {
                 ManageUserRolesViewModel userRolesViewModel = new ManageUserRolesViewModel
                 {
@@ -76,6 +76,7 @@ namespace StartupProject_Asp.NetCore_PostGRE.Controllers.SuperAdmin
             }
             return View(model);
         }
+
         [HttpPost]
         public async Task<IActionResult> Manage(List<ManageUserRolesViewModel> model, string userId)
         {

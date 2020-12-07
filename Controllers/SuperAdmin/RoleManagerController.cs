@@ -41,12 +41,12 @@ namespace StartupProject_Asp.NetCore_PostGRE.Controllers.SuperAdmin
                     Name = roleName.Trim(),
                     Description = roleDescription.Trim()
                 });
-                var accountRole = await _roleManager.FindByNameAsync(roleName);
-                foreach (object name in Enum.GetValues(typeof(EClaim)))
-                {
-                    string description = ((EClaim)name).Description();
-                    await _roleManager.AddClaimAsync(accountRole, new Claim(name.ToString(), description));
-                }
+                //var accountRole = await _roleManager.FindByNameAsync(roleName);
+                //foreach (object name in Enum.GetValues(typeof(EClaim)))
+                //{
+                //    string description = ((EClaim)name).Description();
+                //    await _roleManager.AddClaimAsync(accountRole, new Claim(name.ToString(), description));
+                //}
             }
             return RedirectToAction("Index");
         }

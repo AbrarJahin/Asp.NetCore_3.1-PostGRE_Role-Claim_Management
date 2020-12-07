@@ -22,7 +22,7 @@
                 <td>@user.FirstName</td>
                 <td>@user.LastName</td>
                 <td>@user.Email</td>
-                <td>@string.Join(" , ", user.Roles.ToList())</td>
+                <td>@string.Join(" , ", user.Roles.OrderBy(r=>r).ToList())</td>
                 <td>
                     <a class="btn btn-primary" asp-controller="UserRoles" asp-action="Manage" asp-route-userId="@user.UserId">Manage Roles</a>
                 </td>
