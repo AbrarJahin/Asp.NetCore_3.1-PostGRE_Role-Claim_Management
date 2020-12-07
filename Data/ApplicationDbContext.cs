@@ -69,10 +69,12 @@ namespace StartupProject_Asp.NetCore_PostGRE.Data
             #region Data Seeding
             if (Environment.IsDevelopment())
             {
-                using (SeedController seeder = new SeedController(builder))
-                {
-                    seeder.Execute();
-                }
+                //using (SeedController seeder = new SeedController(builder))
+                //{
+                //    seeder.Execute();
+                //}
+                using SeedController seeder = new SeedController(builder);
+                seeder.Execute();
             }
             #endregion
         }

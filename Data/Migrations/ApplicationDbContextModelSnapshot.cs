@@ -52,40 +52,40 @@ namespace StartupProject_Asp.NetCore_PostGRE.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("8ac1f085-3dc6-4edb-b4f8-fce5dd39a51b"),
-                            ConcurrencyStamp = "1be1ad75-fa8c-4116-8112-73d5e0c4ba1b",
+                            Id = new Guid("85d5070f-cb9c-469b-a781-d7328c8021a2"),
+                            ConcurrencyStamp = "acf876f5-7ee9-415c-a45a-778bd83c4cb6",
                             Description = "Super Admin",
                             Name = "SuperAdmin",
                             NormalizedName = "SUPERADMIN"
                         },
                         new
                         {
-                            Id = new Guid("39dee286-2bf8-4288-9d40-e06ddc458166"),
-                            ConcurrencyStamp = "bb285918-8f9e-465c-b5d5-9540b01ed07e",
+                            Id = new Guid("4244319b-50f8-4075-8ebd-11907d9dfa4f"),
+                            ConcurrencyStamp = "704ab946-16e9-4f6e-b65a-2fce0d58bd4c",
                             Description = "Admin",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = new Guid("28564bf3-779f-4a80-8e68-04aef0140250"),
-                            ConcurrencyStamp = "3b798334-d2d1-42e2-855c-aa108bfcf877",
+                            Id = new Guid("7214f14f-f402-4e1a-abdc-b7b623e37c56"),
+                            ConcurrencyStamp = "3bb8ff33-4837-4818-ad2b-39bfe88dda17",
                             Description = "Auditor",
                             Name = "Auditor",
                             NormalizedName = "AUDITOR"
                         },
                         new
                         {
-                            Id = new Guid("3efcd9d6-6dc2-49c7-86ad-bc76055f25ec"),
-                            ConcurrencyStamp = "45b936ab-cbd9-4840-bd36-cb501725dbb9",
+                            Id = new Guid("9719ba62-ad1e-482e-945c-b7bdc11c8b47"),
+                            ConcurrencyStamp = "ecf26ec6-489c-46d5-b59e-ef58d6e50a03",
                             Description = "Team Member",
                             Name = "TeamMember",
                             NormalizedName = "TEAMMEMBER"
                         },
                         new
                         {
-                            Id = new Guid("bcbbd22f-19fc-426b-a026-27fc4779d1e1"),
-                            ConcurrencyStamp = "ff5513d1-c4e1-41d4-a218-64722f547a24",
+                            Id = new Guid("30b38290-bec4-441c-a87d-a62ea8db7d70"),
+                            ConcurrencyStamp = "b1f6737a-4f77-4bd3-8294-704462eda3f2",
                             Description = "Basic Member",
                             Name = "BasicMember",
                             NormalizedName = "BASICMEMBER"
@@ -195,17 +195,17 @@ namespace StartupProject_Asp.NetCore_PostGRE.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("8d9fc534-8b43-4a7a-b674-e133cf8ca8f8"),
+                            Id = new Guid("c0655021-7c67-4415-8556-cf1f8eaf81a8"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "bc328462-e170-4138-9f51-2e581093f455",
+                            ConcurrencyStamp = "76738a5c-466b-456c-b887-02602a98e8c6",
                             Email = "abrar@jahin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ABRAR@JAHIN.COM",
                             NormalizedUserName = "ABRAR",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJgb+6csfuZL9fjYtrrIuKt4kMfxvQBhvYTb7HYKYSJZSIPWP45W5hrarH00MtaMvg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMSrzvLq5yba/hW/kTMpV+QvonUd/upEedOoBDHzJHU07Ux8u3bAH9OSXNjXGoSqbQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "637429595613372445_deaa50b4-9516-43f7-9f50-4e8735011d48",
+                            SecurityStamp = "637429624801100596_54e092e4-6dff-4027-b6b5-04a02efdc050",
                             TwoFactorEnabled = false,
                             UserName = "abrar",
                             UsernameChangeLimit = 10
@@ -243,23 +243,30 @@ namespace StartupProject_Asp.NetCore_PostGRE.Data.Migrations
                         new
                         {
                             Id = -1,
-                            ClaimType = "RoleClaimView",
-                            ClaimValue = "RoleClaim.View",
-                            UserId = new Guid("8d9fc534-8b43-4a7a-b674-e133cf8ca8f8")
+                            ClaimType = "Role_Read",
+                            ClaimValue = "Role.Read",
+                            UserId = new Guid("c0655021-7c67-4415-8556-cf1f8eaf81a8")
                         },
                         new
                         {
                             Id = -2,
-                            ClaimType = "RoleCreate",
-                            ClaimValue = "Role.Create",
-                            UserId = new Guid("8d9fc534-8b43-4a7a-b674-e133cf8ca8f8")
+                            ClaimType = "Role_Read",
+                            ClaimValue = "Role.Read",
+                            UserId = new Guid("c0655021-7c67-4415-8556-cf1f8eaf81a8")
                         },
                         new
                         {
                             Id = -3,
-                            ClaimType = "ClaimCreate",
-                            ClaimValue = "Claim.Create",
-                            UserId = new Guid("8d9fc534-8b43-4a7a-b674-e133cf8ca8f8")
+                            ClaimType = "Role_Update",
+                            ClaimValue = "Role.Update",
+                            UserId = new Guid("c0655021-7c67-4415-8556-cf1f8eaf81a8")
+                        },
+                        new
+                        {
+                            Id = -4,
+                            ClaimType = "Role_Delete",
+                            ClaimValue = "Role.Delete",
+                            UserId = new Guid("c0655021-7c67-4415-8556-cf1f8eaf81a8")
                         });
                 });
 
@@ -322,32 +329,32 @@ namespace StartupProject_Asp.NetCore_PostGRE.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("8d9fc534-8b43-4a7a-b674-e133cf8ca8f8"),
-                            RoleId = new Guid("8ac1f085-3dc6-4edb-b4f8-fce5dd39a51b"),
+                            UserId = new Guid("c0655021-7c67-4415-8556-cf1f8eaf81a8"),
+                            RoleId = new Guid("85d5070f-cb9c-469b-a781-d7328c8021a2"),
                             ReasonForAdding = "Migration"
                         },
                         new
                         {
-                            UserId = new Guid("8d9fc534-8b43-4a7a-b674-e133cf8ca8f8"),
-                            RoleId = new Guid("39dee286-2bf8-4288-9d40-e06ddc458166"),
+                            UserId = new Guid("c0655021-7c67-4415-8556-cf1f8eaf81a8"),
+                            RoleId = new Guid("4244319b-50f8-4075-8ebd-11907d9dfa4f"),
                             ReasonForAdding = "Migration"
                         },
                         new
                         {
-                            UserId = new Guid("8d9fc534-8b43-4a7a-b674-e133cf8ca8f8"),
-                            RoleId = new Guid("28564bf3-779f-4a80-8e68-04aef0140250"),
+                            UserId = new Guid("c0655021-7c67-4415-8556-cf1f8eaf81a8"),
+                            RoleId = new Guid("7214f14f-f402-4e1a-abdc-b7b623e37c56"),
                             ReasonForAdding = "Migration"
                         },
                         new
                         {
-                            UserId = new Guid("8d9fc534-8b43-4a7a-b674-e133cf8ca8f8"),
-                            RoleId = new Guid("3efcd9d6-6dc2-49c7-86ad-bc76055f25ec"),
+                            UserId = new Guid("c0655021-7c67-4415-8556-cf1f8eaf81a8"),
+                            RoleId = new Guid("9719ba62-ad1e-482e-945c-b7bdc11c8b47"),
                             ReasonForAdding = "Migration"
                         },
                         new
                         {
-                            UserId = new Guid("8d9fc534-8b43-4a7a-b674-e133cf8ca8f8"),
-                            RoleId = new Guid("bcbbd22f-19fc-426b-a026-27fc4779d1e1"),
+                            UserId = new Guid("c0655021-7c67-4415-8556-cf1f8eaf81a8"),
+                            RoleId = new Guid("30b38290-bec4-441c-a87d-a62ea8db7d70"),
                             ReasonForAdding = "Migration"
                         });
                 });

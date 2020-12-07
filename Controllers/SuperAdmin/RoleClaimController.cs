@@ -13,7 +13,8 @@ using System.Threading.Tasks;
 
 namespace StartupProject_Asp.NetCore_PostGRE.Controllers.SuperAdmin
 {
-    [AuthorizeRoles(ERole.SuperAdmin)]
+    //[AuthorizeRoles(ERole.SuperAdmin)]
+    [AuthorizePolicy(EClaim.Role_Read)]
     public class RoleClaimController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -26,7 +27,12 @@ namespace StartupProject_Asp.NetCore_PostGRE.Controllers.SuperAdmin
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            List<Role> roles = await _roleManager.Roles.ToListAsync();
+            var roles = await _roleManager.Roles
+                                //.Select(r => new { r.Id, r.Name, r.Description })
+                                .Distinct()
+                                .OrderByDescending(r => r.Name)//Descending
+                                .ThenBy(r=>r.Description)//Ascending
+                                .ToListAsync();
 
             return View(roles);
         }

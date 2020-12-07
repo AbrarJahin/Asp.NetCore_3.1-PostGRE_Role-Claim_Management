@@ -37,10 +37,12 @@ namespace StartupProject_Asp.NetCore_PostGRE.AuthorizationRequirement
                                 //.Where(rc => rc.ClaimType == claim.ToString() && rc.ClaimValue == claim.Description())
                                 .Where(rc => rc.ClaimType == claim.ToString())
                                 .Select(r=> r.RoleId)
+                                .Distinct()
                                 .ToListAsync();
             var userRole = await _dbContext.UserRoles
                                 .Where(ur=> ur.UserId == user.Id)
                                 .Select(r => r.RoleId)
+                                .Distinct()
                                 .ToListAsync();
             bool hasSameElements = roleClaims.Intersect(userRole).Any();
 

@@ -222,18 +222,18 @@ namespace StartupProject_Asp.NetCore_PostGRE.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Description", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { new Guid("8ac1f085-3dc6-4edb-b4f8-fce5dd39a51b"), "1be1ad75-fa8c-4116-8112-73d5e0c4ba1b", "Super Admin", "SuperAdmin", "SUPERADMIN" },
-                    { new Guid("39dee286-2bf8-4288-9d40-e06ddc458166"), "bb285918-8f9e-465c-b5d5-9540b01ed07e", "Admin", "Admin", "ADMIN" },
-                    { new Guid("28564bf3-779f-4a80-8e68-04aef0140250"), "3b798334-d2d1-42e2-855c-aa108bfcf877", "Auditor", "Auditor", "AUDITOR" },
-                    { new Guid("3efcd9d6-6dc2-49c7-86ad-bc76055f25ec"), "45b936ab-cbd9-4840-bd36-cb501725dbb9", "Team Member", "TeamMember", "TEAMMEMBER" },
-                    { new Guid("bcbbd22f-19fc-426b-a026-27fc4779d1e1"), "ff5513d1-c4e1-41d4-a218-64722f547a24", "Basic Member", "BasicMember", "BASICMEMBER" }
+                    { new Guid("85d5070f-cb9c-469b-a781-d7328c8021a2"), "acf876f5-7ee9-415c-a45a-778bd83c4cb6", "Super Admin", "SuperAdmin", "SUPERADMIN" },
+                    { new Guid("4244319b-50f8-4075-8ebd-11907d9dfa4f"), "704ab946-16e9-4f6e-b65a-2fce0d58bd4c", "Admin", "Admin", "ADMIN" },
+                    { new Guid("7214f14f-f402-4e1a-abdc-b7b623e37c56"), "3bb8ff33-4837-4818-ad2b-39bfe88dda17", "Auditor", "Auditor", "AUDITOR" },
+                    { new Guid("9719ba62-ad1e-482e-945c-b7bdc11c8b47"), "ecf26ec6-489c-46d5-b59e-ef58d6e50a03", "Team Member", "TeamMember", "TEAMMEMBER" },
+                    { new Guid("30b38290-bec4-441c-a87d-a62ea8db7d70"), "b1f6737a-4f77-4bd3-8294-704462eda3f2", "Basic Member", "BasicMember", "BASICMEMBER" }
                 });
 
             migrationBuilder.InsertData(
                 schema: "Identity",
                 table: "User",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePicture", "SecurityStamp", "TwoFactorEnabled", "UserName", "UsernameChangeLimit" },
-                values: new object[] { new Guid("8d9fc534-8b43-4a7a-b674-e133cf8ca8f8"), 0, "bc328462-e170-4138-9f51-2e581093f455", "abrar@jahin.com", true, null, null, false, null, "ABRAR@JAHIN.COM", "ABRAR", "AQAAAAEAACcQAAAAEJgb+6csfuZL9fjYtrrIuKt4kMfxvQBhvYTb7HYKYSJZSIPWP45W5hrarH00MtaMvg==", null, false, null, "637429595613372445_deaa50b4-9516-43f7-9f50-4e8735011d48", false, "abrar", 10 });
+                values: new object[] { new Guid("c0655021-7c67-4415-8556-cf1f8eaf81a8"), 0, "76738a5c-466b-456c-b887-02602a98e8c6", "abrar@jahin.com", true, null, null, false, null, "ABRAR@JAHIN.COM", "ABRAR", "AQAAAAEAACcQAAAAEMSrzvLq5yba/hW/kTMpV+QvonUd/upEedOoBDHzJHU07Ux8u3bAH9OSXNjXGoSqbQ==", null, false, null, "637429624801100596_54e092e4-6dff-4027-b6b5-04a02efdc050", false, "abrar", 10 });
 
             migrationBuilder.InsertData(
                 schema: "Identity",
@@ -241,9 +241,10 @@ namespace StartupProject_Asp.NetCore_PostGRE.Data.Migrations
                 columns: new[] { "Id", "ClaimType", "ClaimValue", "UserId", "UserId1" },
                 values: new object[,]
                 {
-                    { -1, "RoleClaimView", "RoleClaim.View", new Guid("8d9fc534-8b43-4a7a-b674-e133cf8ca8f8"), null },
-                    { -2, "RoleCreate", "Role.Create", new Guid("8d9fc534-8b43-4a7a-b674-e133cf8ca8f8"), null },
-                    { -3, "ClaimCreate", "Claim.Create", new Guid("8d9fc534-8b43-4a7a-b674-e133cf8ca8f8"), null }
+                    { -1, "Role_Read", "Role.Read", new Guid("c0655021-7c67-4415-8556-cf1f8eaf81a8"), null },
+                    { -2, "Role_Read", "Role.Read", new Guid("c0655021-7c67-4415-8556-cf1f8eaf81a8"), null },
+                    { -3, "Role_Update", "Role.Update", new Guid("c0655021-7c67-4415-8556-cf1f8eaf81a8"), null },
+                    { -4, "Role_Delete", "Role.Delete", new Guid("c0655021-7c67-4415-8556-cf1f8eaf81a8"), null }
                 });
 
             migrationBuilder.InsertData(
@@ -252,11 +253,11 @@ namespace StartupProject_Asp.NetCore_PostGRE.Data.Migrations
                 columns: new[] { "UserId", "RoleId", "ReasonForAdding", "RoleId1", "UserId1" },
                 values: new object[,]
                 {
-                    { new Guid("8d9fc534-8b43-4a7a-b674-e133cf8ca8f8"), new Guid("8ac1f085-3dc6-4edb-b4f8-fce5dd39a51b"), "Migration", null, null },
-                    { new Guid("8d9fc534-8b43-4a7a-b674-e133cf8ca8f8"), new Guid("39dee286-2bf8-4288-9d40-e06ddc458166"), "Migration", null, null },
-                    { new Guid("8d9fc534-8b43-4a7a-b674-e133cf8ca8f8"), new Guid("28564bf3-779f-4a80-8e68-04aef0140250"), "Migration", null, null },
-                    { new Guid("8d9fc534-8b43-4a7a-b674-e133cf8ca8f8"), new Guid("3efcd9d6-6dc2-49c7-86ad-bc76055f25ec"), "Migration", null, null },
-                    { new Guid("8d9fc534-8b43-4a7a-b674-e133cf8ca8f8"), new Guid("bcbbd22f-19fc-426b-a026-27fc4779d1e1"), "Migration", null, null }
+                    { new Guid("c0655021-7c67-4415-8556-cf1f8eaf81a8"), new Guid("85d5070f-cb9c-469b-a781-d7328c8021a2"), "Migration", null, null },
+                    { new Guid("c0655021-7c67-4415-8556-cf1f8eaf81a8"), new Guid("4244319b-50f8-4075-8ebd-11907d9dfa4f"), "Migration", null, null },
+                    { new Guid("c0655021-7c67-4415-8556-cf1f8eaf81a8"), new Guid("7214f14f-f402-4e1a-abdc-b7b623e37c56"), "Migration", null, null },
+                    { new Guid("c0655021-7c67-4415-8556-cf1f8eaf81a8"), new Guid("9719ba62-ad1e-482e-945c-b7bdc11c8b47"), "Migration", null, null },
+                    { new Guid("c0655021-7c67-4415-8556-cf1f8eaf81a8"), new Guid("30b38290-bec4-441c-a87d-a62ea8db7d70"), "Migration", null, null }
                 });
 
             migrationBuilder.CreateIndex(
