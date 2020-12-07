@@ -1,7 +1,10 @@
 ﻿using System.Diagnostics;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using StartupProject_Asp.NetCore_PostGRE.Attributes;
+using StartupProject_Asp.NetCore_PostGRE.Data.Enums;
 using StartupProject_Asp.NetCore_PostGRE.Models;
 using StartupProject_Asp.NetCore_PostGRE.Services.EmailService;
 
@@ -31,7 +34,9 @@ namespace StartupProject_Asp.NetCore_PostGRE.Controllers
         //[Authorize(Roles = "SuperAdmin")]
         //[Authorize(Policy ="CanRead")]    -> Should implement
         //[AuthorizeRoles(ERole.SuperAdmin, ERole.Admin)]
-        [Authorize(Roles = "aaaa")]
+        //[Authorize(Policy = "aaaa")]
+        //[Authorize(Policy = "Claim", "Privact")]
+        [AuthorizePolicy(EClaim.RoleCreate)]
         public IActionResult Privacy()
         {
             return View();

@@ -13,6 +13,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Net.Http.Headers;
 using StartupProject_Asp.NetCore_PostGRE.Services.EmailService;
 using WebMarkupMin.AspNetCore3;
+using StartupProject_Asp.NetCore_PostGRE.Data.Enums;
+using StartupProject_Asp.NetCore_PostGRE.AuthorizationRequirement;
+using Microsoft.AspNetCore.Authorization;
 
 namespace StartupProject_Asp.NetCore_PostGRE
 {
@@ -92,14 +95,23 @@ namespace StartupProject_Asp.NetCore_PostGRE
                 .AddDefaultUI();
             #endregion
             #region Policies Configuration in Auth
-            /*services.AddAuthorization(options => {
+            services.AddAuthorization(options => {
                 //options.AddPolicy("MustHaveEmail", polBuilder => polBuilder.RequireClaim(System.Security.Claims.ClaimTypes.Email));
-                options.AddPolicy("IsAdminClaimAccess", policy => policy.RequireClaim("DateOfJoing"));
-                options.AddPolicy(EPolicy.RoleClaimView.ToString(), policy => policy.Requirements.Add(new RoleClaimPolicyRequirement(EPolicy.RoleClaimView)));
+                //options.AddPolicy("IsAdminClaimAccess", policy => policy.RequireClaim("DateOfJoing"));
+                //options.AddPolicy(EPolicy.RoleClaimView.ToString(), policy => policy.Requirements.Add(new RoleClaimPolicyRequirement(EPolicy.RoleClaimView)));
+
                 //options.AddPolicy("IsAdminClaimAccess", policy => policy.Re
                 //options.AddPolicy("Morethan365DaysClaim", policy => policy.Requirements.Add(new MinimumTimeSpendRequirement(365)));
                 //options.AddPolicy("Morethan365DaysClaim", policy => policy.AuthenticationSchemes.);
-            });*/
+                foreach (object eClaimValue in Enum.GetValues(typeof(EClaim)))
+                {
+                    //string description = ((EClaim)eClaimValue).Description() + eClaimValue.ToString();
+
+                    options.AddPolicy(eClaimValue.ToString(), policy => policy.Requirements.Add(new ClaimsRoleRequirement(eClaimValue)));
+                }
+            });
+            // Add all of your handlers to DI.
+            services.AddTransient<IAuthorizationHandler, ClaimsRoleRequirementHandler>();
             #endregion
             #region Update Auth every second after role updated
             //https://stackoverflow.com/a/58117517/2193439
