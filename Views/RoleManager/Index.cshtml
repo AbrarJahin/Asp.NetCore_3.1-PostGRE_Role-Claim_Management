@@ -30,7 +30,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach(var item in Model)
         {
         <tr>
             <td>
@@ -40,7 +40,10 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                <a class="btn btn-primary" asp-controller="RoleClaim" asp-action="Manage" asp-route-id="@item.Id">Manage Claims</a>
+                <div class="btn-group" role="group" aria-label="Role Acrion">
+                    <a class="btn btn-warning" asp-controller="RoleClaim" asp-action="Manage" asp-route-id="@item.Id">Manage Claims</a>
+                    <a class="btn btn-danger" asp-controller="RoleManager" asp-action="DeleteRole" asp-route-id="@item.Id">Delete Role</a>
+                </div>
             </td>
         </tr>
         }

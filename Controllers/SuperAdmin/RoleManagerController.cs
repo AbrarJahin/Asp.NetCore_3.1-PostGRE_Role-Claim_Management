@@ -5,6 +5,7 @@ using StartupProject_Asp.NetCore_PostGRE.AuthorizationRequirement;
 using StartupProject_Asp.NetCore_PostGRE.Data.Enums;
 using StartupProject_Asp.NetCore_PostGRE.Data.Models.Identity;
 using StartupProject_Asp.NetCore_PostGRE.Data.Seeds;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -55,6 +56,17 @@ namespace StartupProject_Asp.NetCore_PostGRE.Controllers.SuperAdmin
                 //}
             }
             return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> DeleteRole(Guid id)
+        {
+            Role role = _roleManager.Roles.Where(r => r.Id == id).FirstOrDefault();
+            if(role!=null)
+            {
+                IdentityResult result = await _roleManager.DeleteAsync(role);
+            }
+            return RedirectToAction("Index", "RoleManager", new { @id = id });
+
         }
     }
 }

@@ -18,8 +18,7 @@
                 <ul>
                     <li>
                         <div>
-                            Subject -
-                            @items.Key
+                            <strong>@items.Key</strong>
                         </div>
                         @foreach (ManageRoleClaimsViewModel item in items.Value)
                         {
@@ -43,8 +42,7 @@
         </div>
         <div class="card-footer">
             <input type="submit" value="Update" class="btn btn-primary" style="width:auto" />
-            <a asp-controller="RoleManager" asp-action="Index"
-               class="btn btn-primary" style="width:auto">Cancel</a>
+            <a asp-controller="RoleManager" asp-action="Index" class="btn btn-primary" style="width:auto">Cancel</a>
         </div>
     </div>
 </form>

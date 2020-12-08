@@ -18,6 +18,7 @@ namespace StartupProject_Asp.NetCore_PostGRE.Controllers.SuperAdmin
     {
         private readonly ApplicationDbContext _context;
         private readonly RoleManager<Role> _roleManager;
+
         public RoleClaimController(RoleManager<Role> roleManager, ApplicationDbContext context)
         {
             _roleManager = roleManager;
@@ -40,6 +41,13 @@ namespace StartupProject_Asp.NetCore_PostGRE.Controllers.SuperAdmin
 
             foreach (EClaim claim in Enum.GetValues(typeof(EClaim)))
             {
+                #region Skip Superadmin permission giving for any role
+                bool condition = claim.ToString().Length < 11 ? false : claim.ToString().Substring(0, 11) == "SuperAdmin_";
+                if (condition)
+                {
+                    continue;
+                }
+                #endregion
                 RoleClaim roleClaim = await _context.RoleClaims
                                         .Where(rc => rc.ClaimType == claim.ToString())
                                         .Where(rc => rc.ClaimValue == claim.Description())
