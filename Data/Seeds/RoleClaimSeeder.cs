@@ -6,27 +6,28 @@ using System.Collections.Generic;
 
 namespace StartupProject_Asp.NetCore_PostGRE.Data.Seeds
 {
-    public class ClaimSeeder
+    public class RoleClaimSeeder
     {
-        internal static void Execute(ModelBuilder builder, ICollection<Guid> superAdminUserIdList)
+        internal static void Execute(ModelBuilder builder, ICollection<Guid> superAdminRoleIdList)
         {
             int itemCount = -1;
-            IList<UserClaim> userClaimList = new List<UserClaim>();
+            IList<RoleClaim> roleClaimList = new List<RoleClaim>();
             //IList<RoleClaim> roleClaimList = new List<RoleClaim>();
-            foreach (Guid superAdminId in superAdminUserIdList)
+            foreach (Guid superAdminId in superAdminRoleIdList)
             {
                 foreach (EClaim claim in Enum.GetValues(typeof(EClaim)))
                 {
-                    string description = claim.Description();
-                    userClaimList.Add(new UserClaim {
-                        Id = itemCount--,
-                        UserId = superAdminId,
+                    roleClaimList.Add(new RoleClaim
+                    {
+                        Id = itemCount,
+                        RoleId = superAdminId,
                         ClaimType = claim.ToString(),
-                        ClaimValue = description
+                        ClaimValue = claim.Description()
                     });
+                    itemCount -= 1;
                 }
             }
-            builder.Entity<UserClaim>().HasData(userClaimList);
+            builder.Entity<RoleClaim>().HasData(roleClaimList);
         }
     }
 }

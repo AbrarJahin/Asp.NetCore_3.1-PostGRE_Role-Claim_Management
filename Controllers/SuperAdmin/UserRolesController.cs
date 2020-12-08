@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using StartupProject_Asp.NetCore_PostGRE.Attributes;
+using StartupProject_Asp.NetCore_PostGRE.AuthorizationRequirement;
 using StartupProject_Asp.NetCore_PostGRE.Data.Enums;
 using StartupProject_Asp.NetCore_PostGRE.Data.Models.Identity;
 using StartupProject_Asp.NetCore_PostGRE.Models;
@@ -12,11 +12,12 @@ using System.Threading.Tasks;
 
 namespace StartupProject_Asp.NetCore_PostGRE.Controllers.SuperAdmin
 {
-    [AuthorizeRoles(ERole.SuperAdmin)]
+    [AuthorizePolicy(EClaim.SuperAdmin_All)]
     public class UserRolesController : Controller
     {
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<Role> _roleManager;
+
         public UserRolesController(UserManager<User> userManager, RoleManager<Role> roleManager)
         {
             _roleManager = roleManager;

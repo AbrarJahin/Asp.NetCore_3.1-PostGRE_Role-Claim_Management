@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace StartupProject_Asp.NetCore_PostGRE.Attributes
+namespace StartupProject_Asp.NetCore_PostGRE.AuthorizationRequirement
 {
     public class AuthorizePolicyAttribute : AuthorizeAttribute
     {
@@ -12,7 +12,6 @@ namespace StartupProject_Asp.NetCore_PostGRE.Attributes
         {
             //Max 1 policy is applicable
             IEnumerable<string> allowedPoliciesAsStrings = allowedPolicies.Select(x => Enum.GetName(typeof(EClaim), x));
-            //var a = string.Join("", allowedPoliciesAsStrings);
             Policy = string.Join("", allowedPoliciesAsStrings);
         }
     }

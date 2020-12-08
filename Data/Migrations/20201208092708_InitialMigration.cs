@@ -220,20 +220,27 @@ namespace StartupProject_Asp.NetCore_PostGRE.Data.Migrations
                 schema: "Identity",
                 table: "Role",
                 columns: new[] { "Id", "ConcurrencyStamp", "Description", "Name", "NormalizedName" },
-                values: new object[,]
-                {
-                    { new Guid("85d5070f-cb9c-469b-a781-d7328c8021a2"), "acf876f5-7ee9-415c-a45a-778bd83c4cb6", "Super Admin", "SuperAdmin", "SUPERADMIN" },
-                    { new Guid("4244319b-50f8-4075-8ebd-11907d9dfa4f"), "704ab946-16e9-4f6e-b65a-2fce0d58bd4c", "Admin", "Admin", "ADMIN" },
-                    { new Guid("7214f14f-f402-4e1a-abdc-b7b623e37c56"), "3bb8ff33-4837-4818-ad2b-39bfe88dda17", "Auditor", "Auditor", "AUDITOR" },
-                    { new Guid("9719ba62-ad1e-482e-945c-b7bdc11c8b47"), "ecf26ec6-489c-46d5-b59e-ef58d6e50a03", "Team Member", "TeamMember", "TEAMMEMBER" },
-                    { new Guid("30b38290-bec4-441c-a87d-a62ea8db7d70"), "b1f6737a-4f77-4bd3-8294-704462eda3f2", "Basic Member", "BasicMember", "BASICMEMBER" }
-                });
+                values: new object[] { new Guid("e507c211-0ff1-4a1e-a744-c0cf30e96934"), "9d3a576f-a9c0-44c7-9f48-788680e06377", "12/8/2020 9:27:07 AM", "Super-Admin", "SUPER-ADMIN" });
 
             migrationBuilder.InsertData(
                 schema: "Identity",
                 table: "User",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePicture", "SecurityStamp", "TwoFactorEnabled", "UserName", "UsernameChangeLimit" },
-                values: new object[] { new Guid("c0655021-7c67-4415-8556-cf1f8eaf81a8"), 0, "76738a5c-466b-456c-b887-02602a98e8c6", "abrar@jahin.com", true, null, null, false, null, "ABRAR@JAHIN.COM", "ABRAR", "AQAAAAEAACcQAAAAEMSrzvLq5yba/hW/kTMpV+QvonUd/upEedOoBDHzJHU07Ux8u3bAH9OSXNjXGoSqbQ==", null, false, null, "637429624801100596_54e092e4-6dff-4027-b6b5-04a02efdc050", false, "abrar", 10 });
+                values: new object[] { new Guid("503c13fb-3f62-43ee-a42b-9beb5b678939"), 0, "66d8c20a-b7ad-4c25-8bae-afe301f3a72d", "abrar@jahin.com", true, "Abrar", "Jahin", false, null, "ABRAR@JAHIN.COM", "ABRAR", "AQAAAAEAACcQAAAAEIvZj1REJRr5G9ehJD0eYPfa4BxlVngQ6ZcUsitZ4PMBTwpKDeR2T6Rv2rITpwLzEg==", null, false, null, "637430380275976571_dbf7cdff-e9a1-411b-93a5-d88d5bfc65e8", false, "abrar", 10 });
+
+            migrationBuilder.InsertData(
+                schema: "Identity",
+                table: "RoleClaim",
+                columns: new[] { "Id", "ClaimType", "ClaimValue", "RoleId" },
+                values: new object[,]
+                {
+                    { -1, "SuperAdmin_All", "SuperAdmin.All", new Guid("e507c211-0ff1-4a1e-a744-c0cf30e96934") },
+                    { -2, "Role_Create", "Role.Create", new Guid("e507c211-0ff1-4a1e-a744-c0cf30e96934") },
+                    { -3, "Role_Read", "Role.Read", new Guid("e507c211-0ff1-4a1e-a744-c0cf30e96934") },
+                    { -4, "Role_Update", "Role.Update", new Guid("e507c211-0ff1-4a1e-a744-c0cf30e96934") },
+                    { -5, "Role_Delete", "Role.Delete", new Guid("e507c211-0ff1-4a1e-a744-c0cf30e96934") },
+                    { -6, "Claim_Create", "Claim.Create", new Guid("e507c211-0ff1-4a1e-a744-c0cf30e96934") }
+                });
 
             migrationBuilder.InsertData(
                 schema: "Identity",
@@ -241,24 +248,19 @@ namespace StartupProject_Asp.NetCore_PostGRE.Data.Migrations
                 columns: new[] { "Id", "ClaimType", "ClaimValue", "UserId", "UserId1" },
                 values: new object[,]
                 {
-                    { -1, "Role_Read", "Role.Read", new Guid("c0655021-7c67-4415-8556-cf1f8eaf81a8"), null },
-                    { -2, "Role_Read", "Role.Read", new Guid("c0655021-7c67-4415-8556-cf1f8eaf81a8"), null },
-                    { -3, "Role_Update", "Role.Update", new Guid("c0655021-7c67-4415-8556-cf1f8eaf81a8"), null },
-                    { -4, "Role_Delete", "Role.Delete", new Guid("c0655021-7c67-4415-8556-cf1f8eaf81a8"), null }
+                    { -1, "SuperAdmin_All", "SuperAdmin.All", new Guid("503c13fb-3f62-43ee-a42b-9beb5b678939"), null },
+                    { -2, "Role_Create", "Role.Create", new Guid("503c13fb-3f62-43ee-a42b-9beb5b678939"), null },
+                    { -3, "Role_Read", "Role.Read", new Guid("503c13fb-3f62-43ee-a42b-9beb5b678939"), null },
+                    { -4, "Role_Update", "Role.Update", new Guid("503c13fb-3f62-43ee-a42b-9beb5b678939"), null },
+                    { -5, "Role_Delete", "Role.Delete", new Guid("503c13fb-3f62-43ee-a42b-9beb5b678939"), null },
+                    { -6, "Claim_Create", "Claim.Create", new Guid("503c13fb-3f62-43ee-a42b-9beb5b678939"), null }
                 });
 
             migrationBuilder.InsertData(
                 schema: "Identity",
                 table: "UserRole",
                 columns: new[] { "UserId", "RoleId", "ReasonForAdding", "RoleId1", "UserId1" },
-                values: new object[,]
-                {
-                    { new Guid("c0655021-7c67-4415-8556-cf1f8eaf81a8"), new Guid("85d5070f-cb9c-469b-a781-d7328c8021a2"), "Migration", null, null },
-                    { new Guid("c0655021-7c67-4415-8556-cf1f8eaf81a8"), new Guid("4244319b-50f8-4075-8ebd-11907d9dfa4f"), "Migration", null, null },
-                    { new Guid("c0655021-7c67-4415-8556-cf1f8eaf81a8"), new Guid("7214f14f-f402-4e1a-abdc-b7b623e37c56"), "Migration", null, null },
-                    { new Guid("c0655021-7c67-4415-8556-cf1f8eaf81a8"), new Guid("9719ba62-ad1e-482e-945c-b7bdc11c8b47"), "Migration", null, null },
-                    { new Guid("c0655021-7c67-4415-8556-cf1f8eaf81a8"), new Guid("30b38290-bec4-441c-a87d-a62ea8db7d70"), "Migration", null, null }
-                });
+                values: new object[] { new Guid("503c13fb-3f62-43ee-a42b-9beb5b678939"), new Guid("e507c211-0ff1-4a1e-a744-c0cf30e96934"), "Created During Migration", null, null });
 
             migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",

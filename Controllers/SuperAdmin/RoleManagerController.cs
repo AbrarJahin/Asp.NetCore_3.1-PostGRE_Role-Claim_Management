@@ -1,18 +1,17 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using StartupProject_Asp.NetCore_PostGRE.Attributes;
+using StartupProject_Asp.NetCore_PostGRE.AuthorizationRequirement;
 using StartupProject_Asp.NetCore_PostGRE.Data.Enums;
 using StartupProject_Asp.NetCore_PostGRE.Data.Models.Identity;
-using System;
+using StartupProject_Asp.NetCore_PostGRE.Data.Seeds;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace StartupProject_Asp.NetCore_PostGRE.Controllers.SuperAdmin
 {
-    [AuthorizeRoles(ERole.SuperAdmin)]
+    [AuthorizePolicy(EClaim.SuperAdmin_All)]
     public class RoleManagerController : Controller
     {
         private readonly RoleManager<Role> _roleManager;
@@ -28,6 +27,13 @@ namespace StartupProject_Asp.NetCore_PostGRE.Controllers.SuperAdmin
                                 .OrderBy(r => r.Name)//Ascending
                                 .ThenByDescending(r => r.Description)//Descending
                                 .ToListAsync();
+            #region SuperAdmin role hide from list so that it can't be modified
+            Role superAdminRole = roles.Where(r => r.Name == RoleSeeder.SuperAdminRoleName).FirstOrDefault();
+            if(superAdminRole!=null)
+            {
+                roles.Remove(superAdminRole);
+            }
+            #endregion
             return View(roles);
         }
 

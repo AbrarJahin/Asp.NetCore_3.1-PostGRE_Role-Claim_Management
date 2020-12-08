@@ -14,7 +14,8 @@
 
 ## Create New Migration after dropping Current Migration-
 
-	Update-Database 0; Remove-Migration; Add-Migration InitialMigration -OutputDir "Data/Migrations"; Update-Database
+	Update-Database 0; Remove-Migration -Force;
+	Add-Migration InitialMigration -OutputDir "Data/Migrations"; Update-Database
 
 ## Create New DB after dropping DB-
 

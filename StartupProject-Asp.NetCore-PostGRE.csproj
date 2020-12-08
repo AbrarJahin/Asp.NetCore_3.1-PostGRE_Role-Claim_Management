@@ -8,6 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\Migrations\20201207122800_InitialMigration.cs" />
+    <Compile Remove="Data\Migrations\20201207122800_InitialMigration.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201208055705_InitialMigration.cs" />
+    <Compile Remove="Data\Migrations\20201208055705_InitialMigration.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201208090657_InitialMigration.cs" />
+    <Compile Remove="Data\Migrations\20201208090657_InitialMigration.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove=".gitignore" />
   </ItemGroup>
 

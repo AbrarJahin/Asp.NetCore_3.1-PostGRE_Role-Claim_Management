@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using StartupProject_Asp.NetCore_PostGRE.Attributes;
+using StartupProject_Asp.NetCore_PostGRE.AuthorizationRequirement;
 using StartupProject_Asp.NetCore_PostGRE.Data;
 using StartupProject_Asp.NetCore_PostGRE.Data.Enums;
 using StartupProject_Asp.NetCore_PostGRE.Data.Models.Identity;
@@ -13,8 +13,7 @@ using System.Threading.Tasks;
 
 namespace StartupProject_Asp.NetCore_PostGRE.Controllers.SuperAdmin
 {
-    //[AuthorizeRoles(ERole.SuperAdmin)]
-    [AuthorizePolicy(EClaim.Role_Read)]
+    [AuthorizePolicy(EClaim.SuperAdmin_All)]
     public class RoleClaimController : Controller
     {
         private readonly ApplicationDbContext _context;
