@@ -20,6 +20,7 @@ namespace StartupProject_Asp.NetCore_PostGRE.Data.Seeds
         {
             ICollection<Guid> superAdminIdList = UserSeeder.Execute(ModelBuilder);
             RoleSeeder.Execute(ModelBuilder, superAdminIdList);
+            //ClaimSeeder is unnecessery as it is never used in the project
             ClaimSeeder.Execute(ModelBuilder, superAdminIdList);
         }
     }

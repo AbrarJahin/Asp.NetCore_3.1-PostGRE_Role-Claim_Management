@@ -12,6 +12,8 @@ namespace StartupProject_Asp.NetCore_PostGRE.Data.Enums
         [Description("Role.Update")]
         Role_Update,
         [Description("Role.Delete")]
-        Role_Delete
+        Role_Delete,
+        [Description("Claim.Create")]
+        Claim_Create
     }
 }

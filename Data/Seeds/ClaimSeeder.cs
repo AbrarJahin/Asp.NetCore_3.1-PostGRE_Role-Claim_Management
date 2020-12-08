@@ -12,7 +12,7 @@ namespace StartupProject_Asp.NetCore_PostGRE.Data.Seeds
         {
             int itemCount = -1;
             IList<UserClaim> userClaimList = new List<UserClaim>();
-            IList<RoleClaim> roleClaimList = new List<RoleClaim>();
+            //IList<RoleClaim> roleClaimList = new List<RoleClaim>();
             foreach (Guid superAdminId in superAdminUserIdList)
             {
                 foreach (object name in Enum.GetValues(typeof(EClaim)))

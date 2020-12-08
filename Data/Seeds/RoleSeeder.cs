@@ -14,24 +14,21 @@ namespace StartupProject_Asp.NetCore_PostGRE.Data.Seeds
             IList<UserRole> userRoleList = new List<UserRole>();
             foreach (Guid superAdminId in superAdminUserIdList)
             {
-                foreach (object name in Enum.GetValues(typeof(ERole)))
+                Guid roleId = Guid.NewGuid();
+                string roleName = "Super-Admin";
+                roleList.Add(new Role
                 {
-                    string description = ((ERole)name).Description();
-                    Guid roleId = Guid.NewGuid();
-                    roleList.Add(new Role
-                    {
-                        Id = roleId,
-                        Name = name.ToString(),
-                        NormalizedName = name.ToString().Normalize().ToUpper(),
-                        Description = description
-                    });
-                    userRoleList.Add(new UserRole
-                    {
-                        RoleId = roleId,
-                        UserId = superAdminId,
-                        ReasonForAdding = "Migration"
-                    });
-                }
+                    Id = roleId,
+                    Name = roleName,
+                    NormalizedName = roleName.ToString().Normalize().ToUpper(),
+                    Description = DateTime.UtcNow.ToString()
+                });
+                userRoleList.Add(new UserRole
+                {
+                    RoleId = roleId,
+                    UserId = superAdminId,
+                    ReasonForAdding = "Created During Migration"
+                });
             }
             
             builder.Entity<Role>().HasData(roleList);

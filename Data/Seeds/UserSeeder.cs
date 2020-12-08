@@ -18,6 +18,8 @@ namespace StartupProject_Asp.NetCore_PostGRE.Data.Seeds
                 new User
                 {
                     Id = userId,
+                    FirstName = "Abrar",
+                    LastName = "Jahin",
                     UserName = "abrar",
                     NormalizedUserName = "abrar".Normalize().ToUpper(),
                     PasswordHash = hasher.HashPassword(null, "abrar@jahin.com"),
