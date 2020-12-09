@@ -145,7 +145,7 @@ namespace StartupProject_Asp.NetCore_PostGRE.Data.Migrations
                     CreateTime = table.Column<DateTime>(type: "TIMESTAMPTZ", nullable: false),
                     LastUpdateTime = table.Column<DateTime>(nullable: true),
                     DeletionTime = table.Column<DateTime>(nullable: true),
-                    ApplicantId = table.Column<long>(nullable: false),
+                    ApplicantId = table.Column<Guid>(nullable: true),
                     ApplicantName = table.Column<string>(maxLength: 32767, nullable: false),
                     Designation = table.Column<string>(maxLength: 32767, nullable: false),
                     LeaveStart = table.Column<DateTime>(nullable: false),
@@ -161,6 +161,13 @@ namespace StartupProject_Asp.NetCore_PostGRE.Data.Migrations
                 {
                     table.PrimaryKey("PK_LeaveApplications", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_LeaveApplications_User_ApplicantId",
+                        column: x => x.ApplicantId,
+                        principalSchema: "Identity",
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_LeaveApplications_XmlFiles_LastSignedId",
                         column: x => x.LastSignedId,
                         principalSchema: "public",
@@ -173,13 +180,13 @@ namespace StartupProject_Asp.NetCore_PostGRE.Data.Migrations
                 schema: "Identity",
                 table: "Role",
                 columns: new[] { "Id", "ConcurrencyStamp", "Description", "Name", "NormalizedName" },
-                values: new object[] { new Guid("31bb77f3-53a2-438e-b29e-e8f12cf49d73"), "f93a5c24-7fc8-43a9-b938-491d15e5ec28", "12/9/2020 8:39:36 AM", "Super-Admin", "SUPER-ADMIN" });
+                values: new object[] { new Guid("01a4573a-e08f-40ec-a7e5-68578ed52e71"), "5303911c-8df3-4685-b6ba-4e7bc96ed6e1", "12/9/2020 3:02:07 PM", "Super-Admin", "SUPER-ADMIN" });
 
             migrationBuilder.InsertData(
                 schema: "Identity",
                 table: "User",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePicture", "SecurityStamp", "TwoFactorEnabled", "UserName", "UsernameChangeLimit" },
-                values: new object[] { new Guid("f91c2202-827c-4be1-8230-abbc89038091"), 0, "ab6a5f97-cbc6-49d7-9ea5-9d1724be8851", "abrar@jahin.com", true, "Abrar", "Jahin", false, null, "ABRAR@JAHIN.COM", "ABRAR", "AQAAAAEAACcQAAAAEPWNQ5lIOfTuhjl3JOFIHpX72sUCr9g4xiRHhxsqoQ+G+QS6pNuctkxOsxvFmJfJbQ==", null, false, null, "637431215769660673_f9910b91-a4f2-4d3a-8287-761ed02adc22", false, "abrar", 10 });
+                values: new object[] { new Guid("7e66cf5e-bdfb-4d8f-906d-9cfd5a14d3e3"), 0, "fd6e644c-433b-4b0f-8902-1fbc30dc4435", "abrar@jahin.com", true, "Abrar", "Jahin", false, null, "ABRAR@JAHIN.COM", "ABRAR", "AQAAAAEAACcQAAAAEKvZDuMcxnBWCD3mrUy/VF75UFlt9d7fYL6H8D9pZ31D0YALKhOY+VmxUaNmXOE7Wg==", null, false, null, "637431445271566300_fc895d8e-bc4d-4263-bf18-91796920f5c2", false, "abrar", 10 });
 
             migrationBuilder.InsertData(
                 schema: "Identity",
@@ -187,12 +194,12 @@ namespace StartupProject_Asp.NetCore_PostGRE.Data.Migrations
                 columns: new[] { "Id", "ClaimType", "ClaimValue", "RoleId" },
                 values: new object[,]
                 {
-                    { -6, "Claim_Create", "Claim.Create", new Guid("31bb77f3-53a2-438e-b29e-e8f12cf49d73") },
-                    { -5, "Role_Delete", "Role.Delete", new Guid("31bb77f3-53a2-438e-b29e-e8f12cf49d73") },
-                    { -4, "Role_Update", "Role.Update", new Guid("31bb77f3-53a2-438e-b29e-e8f12cf49d73") },
-                    { -3, "Role_Read", "Role.Read", new Guid("31bb77f3-53a2-438e-b29e-e8f12cf49d73") },
-                    { -2, "Role_Create", "Role.Create", new Guid("31bb77f3-53a2-438e-b29e-e8f12cf49d73") },
-                    { -1, "SuperAdmin_All", "SuperAdmin.All", new Guid("31bb77f3-53a2-438e-b29e-e8f12cf49d73") }
+                    { -6, "Claim_Create", "Claim.Create", new Guid("01a4573a-e08f-40ec-a7e5-68578ed52e71") },
+                    { -5, "Role_Delete", "Role.Delete", new Guid("01a4573a-e08f-40ec-a7e5-68578ed52e71") },
+                    { -4, "Role_Update", "Role.Update", new Guid("01a4573a-e08f-40ec-a7e5-68578ed52e71") },
+                    { -3, "Role_Read", "Role.Read", new Guid("01a4573a-e08f-40ec-a7e5-68578ed52e71") },
+                    { -2, "Role_Create", "Role.Create", new Guid("01a4573a-e08f-40ec-a7e5-68578ed52e71") },
+                    { -1, "SuperAdmin_All", "SuperAdmin.All", new Guid("01a4573a-e08f-40ec-a7e5-68578ed52e71") }
                 });
 
             migrationBuilder.InsertData(
@@ -201,19 +208,25 @@ namespace StartupProject_Asp.NetCore_PostGRE.Data.Migrations
                 columns: new[] { "Id", "ClaimType", "ClaimValue", "UserId", "UserId1" },
                 values: new object[,]
                 {
-                    { -6, "Claim_Create", "Claim.Create", new Guid("f91c2202-827c-4be1-8230-abbc89038091"), null },
-                    { -5, "Role_Delete", "Role.Delete", new Guid("f91c2202-827c-4be1-8230-abbc89038091"), null },
-                    { -4, "Role_Update", "Role.Update", new Guid("f91c2202-827c-4be1-8230-abbc89038091"), null },
-                    { -3, "Role_Read", "Role.Read", new Guid("f91c2202-827c-4be1-8230-abbc89038091"), null },
-                    { -2, "Role_Create", "Role.Create", new Guid("f91c2202-827c-4be1-8230-abbc89038091"), null },
-                    { -1, "SuperAdmin_All", "SuperAdmin.All", new Guid("f91c2202-827c-4be1-8230-abbc89038091"), null }
+                    { -6, "Claim_Create", "Claim.Create", new Guid("7e66cf5e-bdfb-4d8f-906d-9cfd5a14d3e3"), null },
+                    { -5, "Role_Delete", "Role.Delete", new Guid("7e66cf5e-bdfb-4d8f-906d-9cfd5a14d3e3"), null },
+                    { -4, "Role_Update", "Role.Update", new Guid("7e66cf5e-bdfb-4d8f-906d-9cfd5a14d3e3"), null },
+                    { -3, "Role_Read", "Role.Read", new Guid("7e66cf5e-bdfb-4d8f-906d-9cfd5a14d3e3"), null },
+                    { -2, "Role_Create", "Role.Create", new Guid("7e66cf5e-bdfb-4d8f-906d-9cfd5a14d3e3"), null },
+                    { -1, "SuperAdmin_All", "SuperAdmin.All", new Guid("7e66cf5e-bdfb-4d8f-906d-9cfd5a14d3e3"), null }
                 });
 
             migrationBuilder.InsertData(
                 schema: "Identity",
                 table: "UserRole",
                 columns: new[] { "UserId", "RoleId", "ReasonForAdding", "RoleId1", "UserId1" },
-                values: new object[] { new Guid("f91c2202-827c-4be1-8230-abbc89038091"), new Guid("31bb77f3-53a2-438e-b29e-e8f12cf49d73"), "Created During Migration", null, null });
+                values: new object[] { new Guid("7e66cf5e-bdfb-4d8f-906d-9cfd5a14d3e3"), new Guid("01a4573a-e08f-40ec-a7e5-68578ed52e71"), "Created During Migration", null, null });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LeaveApplications_ApplicantId",
+                schema: "public",
+                table: "LeaveApplications",
+                column: "ApplicantId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_LeaveApplications_LastSignedId",
@@ -320,19 +333,19 @@ namespace StartupProject_Asp.NetCore_PostGRE.Data.Migrations
                 schema: "Identity",
                 table: "UserRole",
                 keyColumns: new[] { "UserId", "RoleId" },
-                keyValues: new object[] { new Guid("f91c2202-827c-4be1-8230-abbc89038091"), new Guid("31bb77f3-53a2-438e-b29e-e8f12cf49d73") });
+                keyValues: new object[] { new Guid("7e66cf5e-bdfb-4d8f-906d-9cfd5a14d3e3"), new Guid("01a4573a-e08f-40ec-a7e5-68578ed52e71") });
 
             migrationBuilder.DeleteData(
                 schema: "Identity",
                 table: "Role",
                 keyColumn: "Id",
-                keyValue: new Guid("31bb77f3-53a2-438e-b29e-e8f12cf49d73"));
+                keyValue: new Guid("01a4573a-e08f-40ec-a7e5-68578ed52e71"));
 
             migrationBuilder.DeleteData(
                 schema: "Identity",
                 table: "User",
                 keyColumn: "Id",
-                keyValue: new Guid("f91c2202-827c-4be1-8230-abbc89038091"));
+                keyValue: new Guid("7e66cf5e-bdfb-4d8f-906d-9cfd5a14d3e3"));
 
             migrationBuilder.InsertData(
                 schema: "Identity",
