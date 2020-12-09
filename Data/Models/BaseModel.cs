@@ -14,12 +14,12 @@ namespace StartupProject_Asp.NetCore_PostGRE.Data.Models
         [Key()]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column(Order = 1)]
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid? Id { get; set; } = Guid.NewGuid();
         [HiddenInput(DisplayValue = false), Display(Name = "First Entry Time")]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         [Column("CreateTime", TypeName = "TIMESTAMPTZ")]
         [ReadOnly(true)]
-        public DateTime CreateTime { get; private set; } = DateTime.UtcNow;
+        public DateTime? CreateTime { get; private set; } = DateTime.UtcNow;
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         [HiddenInput(DisplayValue = false), Display(Name = "Last Update Time"), Column("LastUpdateTime")]
         public DateTime? LastUpdateTime { get; set; }

@@ -2,11 +2,13 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using StartupProject_Asp.NetCore_PostGRE.Data;
 using StartupProject_Asp.NetCore_PostGRE.Data.Models.AppData;
+using StartupProject_Asp.NetCore_PostGRE.Data.Models.Identity;
 
 namespace StartupProject_Asp.NetCore_PostGRE.Controllers
 {
@@ -14,9 +16,11 @@ namespace StartupProject_Asp.NetCore_PostGRE.Controllers
     public class LeaveApplicationsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<User> _userManager;
 
-        public LeaveApplicationsController(ApplicationDbContext context)
+        public LeaveApplicationsController(ApplicationDbContext context, UserManager<User> userManager)
         {
+            _userManager = userManager;
             _context = context;
         }
 
@@ -64,8 +68,8 @@ namespace StartupProject_Asp.NetCore_PostGRE.Controllers
         {
             if (ModelState.IsValid)
             {
-                leaveApplication.Id = Guid.NewGuid();
-                _context.Add(leaveApplication);
+                leaveApplication.Applicant = await _userManager.GetUserAsync(User);
+                _context.LeaveApplications.Add(leaveApplication);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -113,7 +117,7 @@ namespace StartupProject_Asp.NetCore_PostGRE.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!LeaveApplicationExists(leaveApplication.Id))
+                    if (!LeaveApplicationExists(leaveApplication.Id.GetValueOrDefault()))
                     {
                         return NotFound();
                     }
