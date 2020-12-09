@@ -18,6 +18,10 @@
     <Compile Remove="Data\Migrations\20201209083937_ApplicationTableAdded.Designer.cs" />
     <Compile Remove="Data\Migrations\20201209145950_ApplicationTableAddFix.cs" />
     <Compile Remove="Data\Migrations\20201209145950_ApplicationTableAddFix.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201209150208_ApplicationTableAdded.cs" />
+    <Compile Remove="Data\Migrations\20201209150208_ApplicationTableAdded.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201209152302_LeaveApplicationAdded.cs" />
+    <Compile Remove="Data\Migrations\20201209152302_LeaveApplicationAdded.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
