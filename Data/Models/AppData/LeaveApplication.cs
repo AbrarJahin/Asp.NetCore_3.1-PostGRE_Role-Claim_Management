@@ -9,6 +9,7 @@ namespace StartupProject_Asp.NetCore_PostGRE.Data.Models.AppData
     public class LeaveApplication : BaseModel
     {
         #region Applicant with Foreign Key
+        [ScaffoldColumn(false)]
         [Column("ApplicantId"), Display(Name = "Applicant Id", Prompt = "Please Choose Applicant Id")]
         public Guid? ApplicantId { get; set; }
         //No Abstract object can be a element in this class because it is going to be serialized
