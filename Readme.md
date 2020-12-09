@@ -1,6 +1,6 @@
 # Startup Role Management Project for Asp.Net Core 3.1  with PostGRE - perfect for deployment in Linux Server
 
-This application is created with [ASP.Net Core 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1) and [PostGRE SQL](https://www.postgresql.org/download/) (any version, tested with v11-v13). This project is a perfect startup place for a project targetting to deploy in Linux server. HTML, CSS, JS minifire all are configured in the project for better performance.
+This application is created with [ASP.Net Core 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1) and [PostGRE SQL](https://www.postgresql.org/download/) (any version, tested with v11-v13). This project is a perfect startup place (***boilerplate project***) for a project targetting to deploy in Linux server. HTML, CSS, JS minifire all are configured in the project for better performance.
 
 ## Easy Run and Deploy with Requirements
 

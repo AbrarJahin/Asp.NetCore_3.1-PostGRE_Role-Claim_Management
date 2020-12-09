@@ -32,9 +32,9 @@ namespace StartupProject_Asp.NetCore_PostGRE.Data.Migrations
                         .HasColumnType("character varying(32767)")
                         .HasMaxLength(32767);
 
-                    b.Property<long>("ApplicantId")
+                    b.Property<Guid?>("ApplicantId")
                         .HasColumnName("ApplicantId")
-                        .HasColumnType("bigint");
+                        .HasColumnType("uuid");
 
                     b.Property<int>("ApplicationStatus")
                         .HasColumnName("ApplicationStatus")
@@ -94,6 +94,8 @@ namespace StartupProject_Asp.NetCore_PostGRE.Data.Migrations
                         .HasMaxLength(32767);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ApplicantId");
 
                     b.HasIndex("LastSignedId");
 
@@ -189,9 +191,9 @@ namespace StartupProject_Asp.NetCore_PostGRE.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("31bb77f3-53a2-438e-b29e-e8f12cf49d73"),
-                            ConcurrencyStamp = "f93a5c24-7fc8-43a9-b938-491d15e5ec28",
-                            Description = "12/9/2020 8:39:36 AM",
+                            Id = new Guid("01a4573a-e08f-40ec-a7e5-68578ed52e71"),
+                            ConcurrencyStamp = "5303911c-8df3-4685-b6ba-4e7bc96ed6e1",
+                            Description = "12/9/2020 3:02:07 PM",
                             Name = "Super-Admin",
                             NormalizedName = "SUPER-ADMIN"
                         });
@@ -226,42 +228,42 @@ namespace StartupProject_Asp.NetCore_PostGRE.Data.Migrations
                             Id = -1,
                             ClaimType = "SuperAdmin_All",
                             ClaimValue = "SuperAdmin.All",
-                            RoleId = new Guid("31bb77f3-53a2-438e-b29e-e8f12cf49d73")
+                            RoleId = new Guid("01a4573a-e08f-40ec-a7e5-68578ed52e71")
                         },
                         new
                         {
                             Id = -2,
                             ClaimType = "Role_Create",
                             ClaimValue = "Role.Create",
-                            RoleId = new Guid("31bb77f3-53a2-438e-b29e-e8f12cf49d73")
+                            RoleId = new Guid("01a4573a-e08f-40ec-a7e5-68578ed52e71")
                         },
                         new
                         {
                             Id = -3,
                             ClaimType = "Role_Read",
                             ClaimValue = "Role.Read",
-                            RoleId = new Guid("31bb77f3-53a2-438e-b29e-e8f12cf49d73")
+                            RoleId = new Guid("01a4573a-e08f-40ec-a7e5-68578ed52e71")
                         },
                         new
                         {
                             Id = -4,
                             ClaimType = "Role_Update",
                             ClaimValue = "Role.Update",
-                            RoleId = new Guid("31bb77f3-53a2-438e-b29e-e8f12cf49d73")
+                            RoleId = new Guid("01a4573a-e08f-40ec-a7e5-68578ed52e71")
                         },
                         new
                         {
                             Id = -5,
                             ClaimType = "Role_Delete",
                             ClaimValue = "Role.Delete",
-                            RoleId = new Guid("31bb77f3-53a2-438e-b29e-e8f12cf49d73")
+                            RoleId = new Guid("01a4573a-e08f-40ec-a7e5-68578ed52e71")
                         },
                         new
                         {
                             Id = -6,
                             ClaimType = "Claim_Create",
                             ClaimValue = "Claim.Create",
-                            RoleId = new Guid("31bb77f3-53a2-438e-b29e-e8f12cf49d73")
+                            RoleId = new Guid("01a4573a-e08f-40ec-a7e5-68578ed52e71")
                         });
                 });
 
@@ -344,9 +346,9 @@ namespace StartupProject_Asp.NetCore_PostGRE.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f91c2202-827c-4be1-8230-abbc89038091"),
+                            Id = new Guid("7e66cf5e-bdfb-4d8f-906d-9cfd5a14d3e3"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ab6a5f97-cbc6-49d7-9ea5-9d1724be8851",
+                            ConcurrencyStamp = "fd6e644c-433b-4b0f-8902-1fbc30dc4435",
                             Email = "abrar@jahin.com",
                             EmailConfirmed = true,
                             FirstName = "Abrar",
@@ -354,9 +356,9 @@ namespace StartupProject_Asp.NetCore_PostGRE.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ABRAR@JAHIN.COM",
                             NormalizedUserName = "ABRAR",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPWNQ5lIOfTuhjl3JOFIHpX72sUCr9g4xiRHhxsqoQ+G+QS6pNuctkxOsxvFmJfJbQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKvZDuMcxnBWCD3mrUy/VF75UFlt9d7fYL6H8D9pZ31D0YALKhOY+VmxUaNmXOE7Wg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "637431215769660673_f9910b91-a4f2-4d3a-8287-761ed02adc22",
+                            SecurityStamp = "637431445271566300_fc895d8e-bc4d-4263-bf18-91796920f5c2",
                             TwoFactorEnabled = false,
                             UserName = "abrar",
                             UsernameChangeLimit = 10
@@ -396,42 +398,42 @@ namespace StartupProject_Asp.NetCore_PostGRE.Data.Migrations
                             Id = -1,
                             ClaimType = "SuperAdmin_All",
                             ClaimValue = "SuperAdmin.All",
-                            UserId = new Guid("f91c2202-827c-4be1-8230-abbc89038091")
+                            UserId = new Guid("7e66cf5e-bdfb-4d8f-906d-9cfd5a14d3e3")
                         },
                         new
                         {
                             Id = -2,
                             ClaimType = "Role_Create",
                             ClaimValue = "Role.Create",
-                            UserId = new Guid("f91c2202-827c-4be1-8230-abbc89038091")
+                            UserId = new Guid("7e66cf5e-bdfb-4d8f-906d-9cfd5a14d3e3")
                         },
                         new
                         {
                             Id = -3,
                             ClaimType = "Role_Read",
                             ClaimValue = "Role.Read",
-                            UserId = new Guid("f91c2202-827c-4be1-8230-abbc89038091")
+                            UserId = new Guid("7e66cf5e-bdfb-4d8f-906d-9cfd5a14d3e3")
                         },
                         new
                         {
                             Id = -4,
                             ClaimType = "Role_Update",
                             ClaimValue = "Role.Update",
-                            UserId = new Guid("f91c2202-827c-4be1-8230-abbc89038091")
+                            UserId = new Guid("7e66cf5e-bdfb-4d8f-906d-9cfd5a14d3e3")
                         },
                         new
                         {
                             Id = -5,
                             ClaimType = "Role_Delete",
                             ClaimValue = "Role.Delete",
-                            UserId = new Guid("f91c2202-827c-4be1-8230-abbc89038091")
+                            UserId = new Guid("7e66cf5e-bdfb-4d8f-906d-9cfd5a14d3e3")
                         },
                         new
                         {
                             Id = -6,
                             ClaimType = "Claim_Create",
                             ClaimValue = "Claim.Create",
-                            UserId = new Guid("f91c2202-827c-4be1-8230-abbc89038091")
+                            UserId = new Guid("7e66cf5e-bdfb-4d8f-906d-9cfd5a14d3e3")
                         });
                 });
 
@@ -494,8 +496,8 @@ namespace StartupProject_Asp.NetCore_PostGRE.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("f91c2202-827c-4be1-8230-abbc89038091"),
-                            RoleId = new Guid("31bb77f3-53a2-438e-b29e-e8f12cf49d73"),
+                            UserId = new Guid("7e66cf5e-bdfb-4d8f-906d-9cfd5a14d3e3"),
+                            RoleId = new Guid("01a4573a-e08f-40ec-a7e5-68578ed52e71"),
                             ReasonForAdding = "Created During Migration"
                         });
                 });
@@ -526,6 +528,10 @@ namespace StartupProject_Asp.NetCore_PostGRE.Data.Migrations
 
             modelBuilder.Entity("StartupProject_Asp.NetCore_PostGRE.Data.Models.AppData.LeaveApplication", b =>
                 {
+                    b.HasOne("StartupProject_Asp.NetCore_PostGRE.Data.Models.Identity.User", "Applicant")
+                        .WithMany()
+                        .HasForeignKey("ApplicantId");
+
                     b.HasOne("StartupProject_Asp.NetCore_PostGRE.Data.Models.AppData.XmlFile", "PreviousSignedFile")
                         .WithMany()
                         .HasForeignKey("LastSignedId");
