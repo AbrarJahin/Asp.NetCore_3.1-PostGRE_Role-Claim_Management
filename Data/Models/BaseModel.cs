@@ -14,7 +14,7 @@ namespace StartupProject_Asp.NetCore_PostGRE.Data.Models
         [Key()]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column(Order = 1)]
-        internal Guid Id { get; set; }// = Guid.NewGuid();
+        public Guid Id { get; set; } = Guid.NewGuid();
         [HiddenInput(DisplayValue = false), Display(Name = "First Entry Time")]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         [Column("CreateTime", TypeName = "TIMESTAMPTZ")]
