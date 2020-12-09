@@ -1,5 +1,6 @@
 ﻿using StartupProject_Asp.NetCore_PostGRE.Data.Enums;
 using StartupProject_Asp.NetCore_PostGRE.Data.Models.Identity;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
@@ -31,11 +32,11 @@ namespace StartupProject_Asp.NetCore_PostGRE.Data.Models.AppData
 
         [IgnoreDataMember]
         [Column("SignerId"), Display(Name = "Signer Id", Prompt = "Please Give Signer Id")]
-        public long? SignerId { get; set; }
+        public Guid? SignerId { get; set; }
         [ForeignKey("SignerId"), Display(Name = "Previous Signed/Unsigned File", Prompt = "Please Select Previous File")]
         public virtual User Signer { get; set; }
         [Column("PreviousFileId"), Display(Name = "Previous Signed/Unsigned File", Prompt = "Please select Previous File")]
-        public long? PreviousFileId { get; set; }
+        public Guid? PreviousFileId { get; set; }
         [ForeignKey("PreviousFileId"), Display(Name = "Previous Signed/Unsigned File", Prompt = "Please Select Previous File")]
         public virtual XmlFile PreviousSignedFile { get; set; }
 

@@ -1,17 +1,21 @@
 ﻿using StartupProject_Asp.NetCore_PostGRE.Data.Enums;
+using StartupProject_Asp.NetCore_PostGRE.Data.Models.Identity;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace StartupProject_Asp.NetCore_PostGRE.Data.Models.AppData
 {
     public class LeaveApplication : BaseModel
     {
+        #region Applicant with Foreign Key
         [Column("ApplicantId"), Display(Name = "Applicant Id", Prompt = "Please Choose Applicant Id")]
-        public long ApplicantId { get; set; } = -1;
+        public Guid? ApplicantId { get; set; }
+        //No Abstract object can be a element in this class because it is going to be serialized
+        [ForeignKey("ApplicantId"), Display(Name = "Previous Signed/Unsigned File", Prompt = "Please Select Previous File")]
+        public virtual User Applicant { get; set; }
+        #endregion
+
         [Column("ApplicantName"), Required(ErrorMessage = "Applicant Name should be given"), MinLength(3), MaxLength(32767), Display(Name = "Applicant Name", Prompt = "Please Give Applicant Name")]
         public string Name { get; set; }
         [Column("Designation"), Required(ErrorMessage = "Designation should be given"), MinLength(3), MaxLength(32767), Display(Name = "Designation", Prompt = "Please Give Designation")]
@@ -39,10 +43,12 @@ namespace StartupProject_Asp.NetCore_PostGRE.Data.Models.AppData
         [Column("ApplicationStatus"), Display(Name = "Application Status", Prompt = "Please Choose Application Status")]
         public EApplicationStatus ApplicationStatus { get; set; } = EApplicationStatus.Processing;
 
+        #region Last Signed file with Foreign Key
         [Column("LastSignedId"), Display(Name = "Last Signed/Unsigned File", Prompt = "Please select Previous File")]
-        public long? LastSignedId { get; set; }
+        public Guid? LastSignedId { get; set; }
         //No Abstract object can be a element in this class because it is going to be serialized
         [ForeignKey("LastSignedId"), Display(Name = "Previous Signed/Unsigned File", Prompt = "Please Select Previous File")]
         public virtual XmlFile PreviousSignedFile { get; set; }
+        #endregion
     }
 }

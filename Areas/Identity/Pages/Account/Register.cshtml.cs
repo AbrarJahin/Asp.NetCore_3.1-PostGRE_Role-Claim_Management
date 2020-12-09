@@ -51,7 +51,8 @@ namespace StartupProject_Asp.NetCore_PostGRE.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Display(Name = "First Name")]
+            [MinLength(3, ErrorMessage = "First Name does not meet minimum length requirement"), MaxLength(32767)]
+            [Display(Name = "First Name", Prompt = "Please Provide First Name")]
             [Required(ErrorMessage = "First Name is required")]
             [RegularExpression("^[a-zA-Z]*$", ErrorMessage = "Only Alphabets are allowed for First Name")]
             public string FirstName { get; set; }
