@@ -12,6 +12,9 @@ using StartupProject_Asp.NetCore_PostGRE.Data.Models.Identity;
 
 namespace StartupProject_Asp.NetCore_PostGRE.Controllers
 {
+    //[Area("Self")]
+    //[Route("My/[controller]/[action]")]
+    [Route("My/[controller]/[action]", Name = "[controller]_[action]")]
     [Authorize]
     public class LeaveApplicationsController : Controller
     {
@@ -25,6 +28,8 @@ namespace StartupProject_Asp.NetCore_PostGRE.Controllers
         }
 
         // GET: LeaveApplications
+        [Route("All-My-Applications")]
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.LeaveApplications.Include(l => l.Applicant).Include(l => l.PreviousSignedFile);
@@ -52,6 +57,7 @@ namespace StartupProject_Asp.NetCore_PostGRE.Controllers
         }
 
         // GET: LeaveApplications/Create
+        [Route("Apply")]
         public IActionResult Create()
         {
             ViewData["ApplicantId"] = new SelectList(_context.Users, "Id", "Id");
