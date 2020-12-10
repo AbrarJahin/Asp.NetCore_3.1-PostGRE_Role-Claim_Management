@@ -13,7 +13,7 @@ namespace StartupProject_Asp.NetCore_PostGRE.Data.Models.AppData
         [Column("ApplicantId"), Display(Name = "Applicant Id", Prompt = "Please Choose Applicant Id")]
         public Guid? ApplicantId { get; set; }
         //No Abstract object can be a element in this class because it is going to be serialized
-        [ForeignKey("ApplicantId"), Display(Name = "Previous Signed/Unsigned File", Prompt = "Please Select Previous File")]
+        [ForeignKey("ApplicantId"), Display(Name = "Applicant", Prompt = "Please Select Applicant")]
         public virtual User Applicant { get; set; }
         #endregion
 

@@ -213,7 +213,10 @@ namespace StartupProject_Asp.NetCore_PostGRE
                 //        name: "auth",
                 //        pattern: "auth/{controller=Account}/{action=Register}/{id?}"
                 //    );
-
+                //endpoints.MapAreaControllerRoute(
+                //                     name: "default",
+                //                     areaName: "Self",
+                //                     pattern: "{area=Self}/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
                         name: "default",
                         pattern: "{controller=Home}/{action=Index}/{id?}"
