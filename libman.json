@@ -57,8 +57,15 @@
       "library": "datatables@1.10.21",
       "destination": "wwwroot/lib/datatables/",
       "files": [
-        "js/jquery.dataTables.min.js",
-        "css/jquery.dataTables.css"
+        "js/jquery.dataTables.js",
+        "js/dataTables.bootstrap4.js",
+        "css/jquery.dataTables.css",
+        "css/dataTables.bootstrap4.css",
+        "images/sort_asc.png",
+        "images/sort_asc_disabled.png",
+        "images/sort_both.png",
+        "images/sort_desc.png",
+        "images/sort_desc_disabled.png"
       ]
     },
     {
