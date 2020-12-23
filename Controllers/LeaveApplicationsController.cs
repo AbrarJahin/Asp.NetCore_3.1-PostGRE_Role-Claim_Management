@@ -44,40 +44,80 @@ namespace StartupProject_Asp.NetCore_PostGRE.Controllers
         [HttpPost]
         public async Task<IActionResult> DatatableAjaxAsync()
         {
-            //var data = await _context.LeaveApplications
-            //    .Select(application => new {
-            //        application.Id,
-            //        application.LeaveStart,
-            //        application.LeaveEnd,
-            //        application.LeaveType,
-            //        application.ApplicationStatus
-            //    })
-            //    .ToListAsync();
-            //return Json(JsonConvert.SerializeObject(data));
             try
             {
-                var draw = Request.Form["draw"].FirstOrDefault();
-                var start = Request.Form["start"].FirstOrDefault();
-                var length = Request.Form["length"].FirstOrDefault();
-                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault();
-                var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();
-                var searchValue = Request.Form["search[value]"].FirstOrDefault();
+                string draw = Request.Form["draw"].FirstOrDefault();
+                string start = Request.Form["start"].FirstOrDefault();
+                string length = Request.Form["length"].FirstOrDefault();
+                string sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault();
+                string sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();
+                string searchValue = Request.Form["search[value]"].FirstOrDefault();
                 int pageSize = length != null ? Convert.ToInt32(length) : 0;
                 int skip = start != null ? Convert.ToInt32(start) : 0;
                 int recordsTotal = 0;
-                var customerData = _context.LeaveApplications;
+                IQueryable<LeaveApplication> customerData = _context.LeaveApplications;//.OrderBy(c => c.CreateTime).Where(d=> d.Name.Length>2);
 
-                //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
-                //{
-                //    customerData = customerData.OrderBy(sortColumn + " " + sortColumnDirection);
-                //}
-                //if (!string.IsNullOrEmpty(searchValue))
-                //{
-                //    customerData = customerData.Where(m => m.FirstName.Contains(searchValue)
-                //                                || m.LastName.Contains(searchValue)
-                //                                || m.Contact.Contains(searchValue)
-                //                                || m.Email.Contains(searchValue));
-                //}
+                if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+                {
+                    //customerData = customerData.OrderBy(sortColumn + " " + sortColumnDirection);
+                    switch (sortColumn)
+                    {
+                        case "Leave Start":
+                            if (String.Equals(sortColumnDirection, "asc"))
+                            {
+                                customerData = customerData.OrderBy(c => c.LeaveStart);
+                            }
+                            else
+                            {
+                                customerData = customerData.OrderByDescending(c => c.LeaveStart);
+                            }
+                            break;
+                        case "Leave End":
+                            if (String.Equals(sortColumnDirection, "asc"))
+                            {
+                                customerData = customerData.OrderBy(c => c.LeaveEnd);
+                            }
+                            else
+                            {
+                                customerData = customerData.OrderByDescending(c => c.LeaveEnd);
+                            }
+                            break;
+                        case "Leave Type":
+                            if (String.Equals(sortColumnDirection, "asc"))
+                            {
+                                customerData = customerData.OrderBy(c => c.LeaveType);
+                            }
+                            else
+                            {
+                                customerData = customerData.OrderByDescending(c => c.LeaveType);
+                            }
+                            break;
+                        case "Application Status":
+                            if (String.Equals(sortColumnDirection, "asc"))
+                            {
+                                customerData = customerData.OrderBy(c => c.ApplicationStatus);
+                            }
+                            else
+                            {
+                                customerData = customerData.OrderByDescending(c => c.ApplicationStatus);
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                if (!string.IsNullOrEmpty(searchValue))
+                {
+                    //customerData = customerData.Where(m => m.FirstName.Contains(searchValue)
+                    //                            || m.LastName.Contains(searchValue)
+                    //                            || m.Contact.Contains(searchValue)
+                    //                            || m.Email.Contains(searchValue));
+                    customerData = customerData.Where(m =>
+                                                        m.Name.Contains(searchValue)
+                                                        ||
+                                                        m.PurposeOfLeave.Contains(searchValue)
+                                                    );
+                }
                 recordsTotal = await customerData.CountAsync();
                 var data = await customerData
                                     .Select(application => new {
@@ -90,7 +130,12 @@ namespace StartupProject_Asp.NetCore_PostGRE.Controllers
                                     .Skip(skip)
                                     .Take(pageSize)
                                     .ToListAsync();
-                var jsonData = new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data };
+                var jsonData = new {
+                    draw = draw,
+                    recordsFiltered = recordsTotal,
+                    recordsTotal = recordsTotal,
+                    data = data
+                };
                 return Ok(jsonData);
             }
             catch (Exception ex)
