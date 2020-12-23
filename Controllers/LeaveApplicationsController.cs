@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using StartupProject_Asp.NetCore_PostGRE.Data;
+using StartupProject_Asp.NetCore_PostGRE.Data.Enums;
 using StartupProject_Asp.NetCore_PostGRE.Data.Models.AppData;
 using StartupProject_Asp.NetCore_PostGRE.Data.Models.Identity;
 
@@ -32,12 +33,11 @@ namespace StartupProject_Asp.NetCore_PostGRE.Controllers
         // GET: LeaveApplications
         [Route("All-My-Applications")]
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            //Datatable - https://www.c-sharpcorner.com/article/jquery-datatables-with-asp-net-core-server-side-dynamic-multiple-column-searchin/
-            var applicationDbContext = _context.LeaveApplications.Include(user => user.Applicant).Include(xml => xml.PreviousSignedFile);
-            List<LeaveApplication> data = await applicationDbContext.ToListAsync();
-            return View(data);
+            //var applicationDbContext = _context.LeaveApplications.Include(user => user.Applicant).Include(xml => xml.PreviousSignedFile);
+            //List<LeaveApplication> data = await applicationDbContext.ToListAsync();
+            return View();
         }
 
         [Route("All-My-Applications-Ajax")]
@@ -124,8 +124,9 @@ namespace StartupProject_Asp.NetCore_PostGRE.Controllers
                                         application.Id,
                                         application.LeaveStart,
                                         application.LeaveEnd,
-                                        application.LeaveType,
-                                        application.ApplicationStatus
+                                        
+                                        LeaveType = ((ELeaveType)application.LeaveType).DesplayName(),
+                                        ApplicationStatus = ((EApplicationStatus)application.ApplicationStatus).DesplayName()
                                     })
                                     .Skip(skip)
                                     .Take(pageSize)
