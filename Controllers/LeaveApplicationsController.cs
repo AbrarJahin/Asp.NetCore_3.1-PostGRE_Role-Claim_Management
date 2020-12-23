@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using StartupProject_Asp.NetCore_PostGRE.Data;
 using StartupProject_Asp.NetCore_PostGRE.Data.Models.AppData;
 using StartupProject_Asp.NetCore_PostGRE.Data.Models.Identity;
@@ -32,8 +34,69 @@ namespace StartupProject_Asp.NetCore_PostGRE.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.LeaveApplications.Include(l => l.Applicant).Include(l => l.PreviousSignedFile);
-            return View(await applicationDbContext.ToListAsync());
+            //Datatable - https://www.c-sharpcorner.com/article/jquery-datatables-with-asp-net-core-server-side-dynamic-multiple-column-searchin/
+            var applicationDbContext = _context.LeaveApplications.Include(user => user.Applicant).Include(xml => xml.PreviousSignedFile);
+            List<LeaveApplication> data = await applicationDbContext.ToListAsync();
+            return View(data);
+        }
+
+        [Route("All-My-Applications-Ajax")]
+        [HttpPost]
+        public async Task<IActionResult> DatatableAjaxAsync()
+        {
+            //var data = await _context.LeaveApplications
+            //    .Select(application => new {
+            //        application.Id,
+            //        application.LeaveStart,
+            //        application.LeaveEnd,
+            //        application.LeaveType,
+            //        application.ApplicationStatus
+            //    })
+            //    .ToListAsync();
+            //return Json(JsonConvert.SerializeObject(data));
+            try
+            {
+                var draw = Request.Form["draw"].FirstOrDefault();
+                var start = Request.Form["start"].FirstOrDefault();
+                var length = Request.Form["length"].FirstOrDefault();
+                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault();
+                var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();
+                var searchValue = Request.Form["search[value]"].FirstOrDefault();
+                int pageSize = length != null ? Convert.ToInt32(length) : 0;
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+                int recordsTotal = 0;
+                var customerData = _context.LeaveApplications;
+
+                //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+                //{
+                //    customerData = customerData.OrderBy(sortColumn + " " + sortColumnDirection);
+                //}
+                //if (!string.IsNullOrEmpty(searchValue))
+                //{
+                //    customerData = customerData.Where(m => m.FirstName.Contains(searchValue)
+                //                                || m.LastName.Contains(searchValue)
+                //                                || m.Contact.Contains(searchValue)
+                //                                || m.Email.Contains(searchValue));
+                //}
+                recordsTotal = await customerData.CountAsync();
+                var data = await customerData
+                                    .Select(application => new {
+                                        application.Id,
+                                        application.LeaveStart,
+                                        application.LeaveEnd,
+                                        application.LeaveType,
+                                        application.ApplicationStatus
+                                    })
+                                    .Skip(skip)
+                                    .Take(pageSize)
+                                    .ToListAsync();
+                var jsonData = new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data };
+                return Ok(jsonData);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         // GET: LeaveApplications/Details/5

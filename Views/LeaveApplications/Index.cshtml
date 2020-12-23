@@ -58,56 +58,115 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Applicant.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Designation)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LeaveStart)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LeaveEnd)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LeaveType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PurposeOfLeave)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AddressDuringLeave)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhoneNoDuringLeave)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ApplicationStatus)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PreviousSignedFile.FileContent)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreateTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastUpdateTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DeletionTime)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Applicant.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Designation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LeaveStart)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LeaveEnd)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LeaveType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PurposeOfLeave)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AddressDuringLeave)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNoDuringLeave)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApplicationStatus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PreviousSignedFile.FileContent)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastUpdateTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeletionTime)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+@*Try Datatable*@
+
+<meta name="datatable-url" content="@Url.Action("DatatableAjax", "LeaveApplications")" />
+
+<div style="width: 500px">
+    <table id="customerDatatable" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.LeaveStart)</th>
+                <th>@Html.DisplayNameFor(model => model.LeaveEnd)</th>
+                <th>@Html.DisplayNameFor(model => model.LeaveType)</th>
+                <th>@Html.DisplayNameFor(model => model.ApplicationStatus)</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#customerDatatable").DataTable({
+            bLengthChange: true,
+            lengthMenu: [[5, 10, -1], [5, 10, "All"]],
+            bFilter: true,
+            bSort: true,
+            bPaginate: true,
+            "processing": true,
+            "serverSide": true,
+            "filter": true,
+            "ajax": {
+                "url": $('meta[name=datatable-url]').attr('content'),
+                "type": "POST",
+                "datatype": "json"
+            },
+            "columnDefs": [{
+                "targets": [0],
+                "visible": true,
+                "searchable": false
+            }],
+            "columns": [
+                { "data": "leaveStart",         "name": "LeaveStart",          "autoWidth": true },
+                { "data": "leaveEnd",           "name": "LeaveEnd",            "autoWidth": true },
+                { "data": "leaveType",          "name": "LeaveType",           "autoWidth": true },
+                { "data": "applicationStatus",  "name": "ApplicationStatus",   "autoWidth": true },
+                {
+                    "render": function (data, row) { return "<a href='#' class='btn btn-danger' onclick=DeleteCustomer('" + row.id + "'); >Delete</a>"; }
+                }
+            ]
+        });
+
+    });
+</script>
