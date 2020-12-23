@@ -36,7 +36,7 @@ $(document).ready(function () {
                         var viewUrl = $('meta[name=view-url]').attr('content').slice(0, -1) + data;
                         var editUrl = $('meta[name=edit-url]').attr('content').slice(0, -1) + data;
                         var deleteUrl = $('meta[name=delete-url]').attr('content').slice(0, -1) + data;
-                        var html = '<div class="btn-group" role="group" aria-label="..."> <a href = "' + viewUrl + '" class="btn btn-default" >View</a> <a href="' + editUrl + '" class="btn btn-default">Edit</a> <a href="' + deleteUrl + '" class="btn btn-default">Delete</a></div >';
+                        var html = '<div class="btn-group" role="group" aria-label="Action"> <a href = "' + viewUrl + '" class="btn btn-primary" >View</a> <a href="' + editUrl + '" class="btn btn-warning">Edit</a> <a href="' + deleteUrl + '" class="btn btn-danger">Delete</a></div >';
                         //return "<a href='#' class='btn btn-danger' onclick=DeleteCustomer('" + data + "'); >Delete</a>";
                         return html;
                     },
