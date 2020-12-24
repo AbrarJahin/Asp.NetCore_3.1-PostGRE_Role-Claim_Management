@@ -54,9 +54,12 @@ namespace StartupProject_Asp.NetCore_PostGRE.Controllers
                 string searchValue = Request.Form["search[value]"].FirstOrDefault();
                 int pageSize = length != null ? Convert.ToInt32(length) : 0;
                 int skip = start != null ? Convert.ToInt32(start) : 0;
-                int recordsTotal = 0;
                 IQueryable<LeaveApplication> customerData = _context.LeaveApplications;//.OrderBy(c => c.CreateTime).Where(d=> d.Name.Length>2);
-
+                int recordsTotal = await customerData.CountAsync();
+                if (pageSize == -1)
+                {
+                    pageSize = recordsTotal;
+                }
                 if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
                 {
                     //customerData = customerData.OrderBy(sortColumn + " " + sortColumnDirection);
@@ -118,13 +121,12 @@ namespace StartupProject_Asp.NetCore_PostGRE.Controllers
                                                         m.PurposeOfLeave.Contains(searchValue)
                                                     );
                 }
-                recordsTotal = await customerData.CountAsync();
+                int recordsFiltered = await customerData.CountAsync();
                 var data = await customerData
                                     .Select(application => new {
                                         application.Id,
-                                        application.LeaveStart,
-                                        application.LeaveEnd,
-                                        
+                                        LeaveStart = application.LeaveStart.ToString("dddd, MMMM d, yyyy"),
+                                        LeaveEnd = application.LeaveEnd.ToString("dddd, MMMM d, yyyy"),
                                         LeaveType = ((ELeaveType)application.LeaveType).DesplayName(),
                                         ApplicationStatus = ((EApplicationStatus)application.ApplicationStatus).DesplayName()
                                     })
@@ -133,7 +135,7 @@ namespace StartupProject_Asp.NetCore_PostGRE.Controllers
                                     .ToListAsync();
                 var jsonData = new {
                     draw = draw,
-                    recordsFiltered = recordsTotal,
+                    recordsFiltered = recordsFiltered,
                     recordsTotal = recordsTotal,
                     data = data
                 };
