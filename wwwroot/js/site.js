@@ -40,6 +40,7 @@ $(document).ready(function () {
                         //return "<a href='#' class='btn btn-danger' onclick=DeleteCustomer('" + data + "'); >Delete</a>";
                         return html;
                     },
+                    "searchable": false,
                     "orderable": false
                 }
             ]

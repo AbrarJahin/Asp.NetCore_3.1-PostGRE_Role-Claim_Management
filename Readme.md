@@ -2,6 +2,38 @@
 
 This application is created with [ASP.Net Core 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1) and [PostGRE SQL](https://www.postgresql.org/download/) (any version, tested with v11-v13). This project is a perfect startup place (***boilerplate project***) for a project targetting to deploy in Linux server. HTML, CSS, JS minifire all are configured in the project for better performance.
 
+**Features covered in this project**-
+1. Configuration with PostGRE SQL (Support for both NoSQL and SQL)
+2. Frontend Library Manager
+3. [CSS and JS code minifire with compresser](#css-and-js-library-with-bundling-and-minification)
+4. Code First Approach - Database Migration
+5. Seed fake data
+6. Datatable Data view with custom action
+7. Authorization and authentication
+8. Role and claim Based Authintication
+9. Role Management
+   1. Assign action to specific role
+   2. Assign any role to any user
+   3. Create New Role
+10. Easy deploy in Linux (Centos deploy command added)
+11. Default Fallback Page Configured
+12. HTML Compressor during deployment configured
+13. Email Service Configured
+    1. User verification mail configured
+    2. User password reset mail configured
+    3. Any promotional mail configured
+    4. Mail configuration read from `appsettings.json` file
+14. Role based control over razor elements
+15. Cache Configuration for static files
+16. Force web to Https over http with self signed certificate at port 5001 as default
+17. Custom Identity pages in Identity Area
+    1. Add custom actions and login
+    2. Customize Identity URLs
+    3. Customize Identity views
+    4. Add User-name change limit
+    5. Restrict user from login if wrong pasword is provided for several times
+    6. Add 2FA login with QrCode and Google Authinticator
+
 ## Easy Run and Deploy with Requirements
 
 To run this project, [CLI](https://www.c-sharpcorner.com/article/net-core-cli2/) can be enough, but [Visual Studio](https://visualstudio.microsoft.com/vs/) is recommanded because it offers various features to devs.

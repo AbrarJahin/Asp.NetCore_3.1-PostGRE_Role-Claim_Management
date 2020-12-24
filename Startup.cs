@@ -128,8 +128,8 @@ namespace StartupProject_Asp.NetCore_PostGRE
             services.AddWebMarkupMin(
                 options =>
                 {
-                    options.AllowMinificationInDevelopmentEnvironment = false;
-                    options.AllowCompressionInDevelopmentEnvironment = false;
+                    options.AllowMinificationInDevelopmentEnvironment = true;
+                    options.AllowCompressionInDevelopmentEnvironment = true;
                 })
                 .AddHtmlMinification(
                     options =>
