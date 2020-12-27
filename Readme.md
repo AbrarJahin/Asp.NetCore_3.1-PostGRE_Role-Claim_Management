@@ -2,7 +2,20 @@
 
 This application is created with [ASP.Net Core 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1) and [PostGRE SQL](https://www.postgresql.org/download/) (any version, tested with v11-v13). This project is a perfect startup place (***boilerplate project***) for a project targetting to deploy in Linux server. HTML, CSS, JS minifire all are configured in the project for better performance.
 
-**Features covered in this project**-
+## Table of Contents
+
+* [Features](#features)
+* [Getting Started](#getting-started)
+* [Deployment](#deployment)
+* [Upcoming Features](#upcoming-features)
+* [Application Structure](#application-structure)
+* [Gotchas](#gotchas)
+* [FAQ](#faq---also-check-out-the-faq-issues-label-and-the-how-to-issues-label)
+* [Special Thanks](#special-thanks)
+* [License](#license)
+
+## Features
+
 1. Configuration with PostGRE SQL (Support for both NoSQL and SQL)
 2. Frontend Library Manager
 3. [CSS and JS code minifire with compresser](#css-and-js-library-with-bundling-and-minification)
