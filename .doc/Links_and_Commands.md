@@ -62,3 +62,4 @@ https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 
 - dotnet tool install --global dotnet-ef
 - dotnet ef database update -- --environment Production
+- dotnet ef migrations remove -- --environment Production
