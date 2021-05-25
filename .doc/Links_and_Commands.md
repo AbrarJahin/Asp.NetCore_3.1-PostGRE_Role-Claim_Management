@@ -12,6 +12,12 @@
 	- Update-Database –Migration <name of last good migration>	#Restore from a good migration - example: "Update-Database –Migration InitialMigration"
     - Drop-Database		#Drop The Database
 
+## Run Migration In Linux - 
+
+- dotnet tool install --global dotnet-ef
+- dotnet ef database update -- --environment Production
+- dotnet ef migrations remove -- --environment Production
+
 ## Create New Migration after dropping Current Migration-
 
 	Update-Database 0; Remove-Migration -Force;
@@ -56,10 +62,3 @@ Should store and verify data after all data is provided by the user.
 ## JS, CSS, HTML Minifire Config-
 
 https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-
-
-##n Run Migration In Linux - 
-
-- dotnet tool install --global dotnet-ef
-- dotnet ef database update -- --environment Production
-- dotnet ef migrations remove -- --environment Production
